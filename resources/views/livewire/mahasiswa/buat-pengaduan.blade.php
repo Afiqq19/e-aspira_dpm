@@ -83,6 +83,43 @@
                     @error('isi') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- Unggah Lampiran Foto -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Lampiran Bukti Foto (Opsional)</label>
+                    
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-xl hover:bg-slate-50 hover:border-indigo-400 transition-colors relative">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="flex justify-center text-sm text-slate-600">
+                                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-1">
+                                    <span>Unggah Foto</span>
+                                    <input id="file-upload" wire:model="fotos" type="file" class="sr-only" multiple accept="image/*">
+                                </label>
+                                <p class="pl-1">atau seret dan lepas</p>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                PNG, JPG up to 10MB (Maksimal 3 Foto). 
+                                <span wire:loading wire:target="fotos" class="text-indigo-600 font-bold ml-1">Mengunggah...</span>
+                            </p>
+                        </div>
+                    </div>
+                    @error('fotos') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+                    @error('fotos.*') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                    <!-- Preview Foto -->
+                    @if ($fotos)
+                        <div class="mt-4 grid grid-cols-3 gap-4">
+                            @foreach($fotos as $foto)
+                                <div class="relative rounded-lg overflow-hidden border border-slate-200 shadow-sm aspect-square bg-slate-100">
+                                    <img src="{{ $foto->temporaryUrl() }}" class="w-full h-full object-cover">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
                 <div class="pt-4 flex justify-end gap-3 border-t border-slate-100">
                     <a href="{{ route('home') }}" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors">Batal</a>
                     <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2 min-w-[150px] justify-center">

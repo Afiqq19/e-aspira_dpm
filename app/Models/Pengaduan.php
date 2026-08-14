@@ -25,12 +25,20 @@ class Pengaduan extends Model
         'kode_anonim',
         'alasan_penolakan',
         'ditangani_pada',
+        'lampiran',
     ];
 
-    protected $casts = [
-        'penanganan_khusus' => 'boolean',
-        'ditangani_pada' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     */
+    protected function casts(): array
+    {
+        return [
+            'penanganan_khusus' => 'boolean',
+            'ditangani_pada' => 'datetime',
+            'lampiran' => 'array',
+        ];
+    }
 
     // =====================================================================
     // ACTIVITY LOG — Hanya log field non-sensitif

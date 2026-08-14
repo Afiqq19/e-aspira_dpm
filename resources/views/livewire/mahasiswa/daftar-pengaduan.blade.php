@@ -54,10 +54,10 @@
                     <p class="text-slate-700 text-sm line-clamp-2 mt-4">{{ $p->isi }}</p>
                     
                     <div class="mt-4 pt-4 border-t border-slate-100 flex justify-end">
-                        <button class="text-sm font-medium text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                        <a href="{{ route('mahasiswa.pengaduan.detail', $p->ticket_code) }}" wire:navigate class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
                             Lihat Detail & Tanggapan
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
+                        </a>
                     </div>
                 </div>
             @empty
@@ -81,13 +81,17 @@
                     <h3 class="text-lg font-bold">Lacak Tiket Anonim</h3>
                 </div>
                 <p class="text-slate-400 text-sm mb-6">Punya nomor tiket dari pengaduan mode anonim? Masukkan di bawah ini untuk melihat statusnya.</p>
-                
-                <form class="space-y-4">
+                <form wire:submit="lacakAnonim" class="space-y-4">
                     <div>
-                        <input type="text" class="w-full bg-slate-950/50 border border-slate-700 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-white placeholder-slate-500 text-sm" placeholder="Contoh: PLP-2026-ABCD">
+                        <input wire:model="searchTicketCode" type="text" class="w-full bg-slate-950/50 border border-slate-700 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-white placeholder-slate-500 text-sm uppercase" placeholder="Contoh: PLP-2026-ABCD">
+                        @error('searchTicketCode') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
-                    <button type="button" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition-colors">
-                        Lacak Status
+                    <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition-colors flex justify-center items-center gap-2">
+                        <span wire:loading.remove wire:target="lacakAnonim">Lacak Status</span>
+                        <span wire:loading.flex wire:target="lacakAnonim" class="items-center">
+                            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            Mencari...
+                        </span>
                     </button>
                 </form>
             </div>
