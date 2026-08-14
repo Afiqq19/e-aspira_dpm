@@ -11,6 +11,7 @@ use Livewire\Volt\Component;
 new #[Layout('layouts.guest')] class extends Component
 {
     public string $nim = '';
+    public string $prodi = '';
     public string $nama = '';
     public string $email = '';
     public string $password = '';
@@ -23,6 +24,7 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $validated = $this->validate([
             'nim' => ['required', 'string', 'max:20', 'unique:'.User::class],
+            'prodi' => ['required', 'string', 'max:100'],
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
@@ -54,6 +56,13 @@ new #[Layout('layouts.guest')] class extends Component
             <x-input-label for="nim" :value="__('Nomor Induk Mahasiswa (NIM)')" class="text-slate-700 font-medium" />
             <x-text-input wire:model="nim" id="nim" class="block mt-1 w-full border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 text-sm py-2.5" type="text" name="nim" required autofocus placeholder="Contoh: 2205012001" />
             <x-input-error :messages="$errors->get('nim')" class="mt-2 text-rose-500" />
+        </div>
+
+        <!-- Program Studi (Prodi) -->
+        <div class="mt-4">
+            <x-input-label for="prodi" :value="__('Program Studi (Prodi)')" class="text-slate-700 font-medium" />
+            <x-text-input wire:model="prodi" id="prodi" class="block mt-1 w-full border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white/50 text-sm py-2.5" type="text" name="prodi" required placeholder="Contoh: Teknik Komputer" />
+            <x-input-error :messages="$errors->get('prodi')" class="mt-2 text-rose-500" />
         </div>
 
         <!-- Nama Lengkap -->

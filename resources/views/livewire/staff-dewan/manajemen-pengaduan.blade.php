@@ -109,9 +109,9 @@
                                 </select>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <button class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
+                                <a href="{{ Auth::user()->hasRole('admin') ? route('admin.pengaduan.detail', $p->ticket_code) : route('dewan.pengaduan.detail', $p->ticket_code) }}" wire:navigate class="inline-block text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
                                     Lihat Detail
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @empty

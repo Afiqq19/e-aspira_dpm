@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('log-aktivitas', \App\Livewire\Admin\LogAktivitas::class)->name('log-aktivitas');
         // Manajemen Pengaduan
         Route::get('pengaduan', \App\Livewire\StaffDewan\ManajemenPengaduan::class)->name('pengaduan.index');
+        Route::get('pengaduan/{ticket_code}', \App\Livewire\StaffDewan\DetailPengaduan::class)->name('pengaduan.detail');
         // Pantau Evaluasi Proker
         Route::get('evaluasi-proker', \App\Livewire\StaffDewan\PantauEvaluasi::class)->name('evaluasi-proker.index');
         // Kelola Proker
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Manajemen Pengaduan
         Route::get('pengaduan', \App\Livewire\StaffDewan\ManajemenPengaduan::class)->name('pengaduan.index');
+        Route::get('pengaduan/{ticket_code}', \App\Livewire\StaffDewan\DetailPengaduan::class)->name('pengaduan.detail');
         
         // Manajemen Pengumuman DPM
         Route::get('pengumuman', \App\Livewire\Admin\KelolaPengumuman::class)->name('pengumuman.index');

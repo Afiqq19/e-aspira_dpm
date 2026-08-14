@@ -18,7 +18,7 @@ class DetailPengaduan extends Component
         $this->ticket_code = $ticket_code;
         
         // Cari pengaduan milik user yang login
-        $this->pengaduan = Pengaduan::with(['kategori', 'tanggapanPengaduans.user'])
+        $this->pengaduan = Pengaduan::with(['kategori', 'tanggapans.user'])
             ->where('ticket_code', $ticket_code)
             ->where(function($query) {
                 // Pastikan hanya bisa dilihat oleh si pembuat laporan

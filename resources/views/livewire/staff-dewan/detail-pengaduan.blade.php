@@ -1,0 +1,192 @@
+<div>
+    <x-slot name="header">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center gap-3">
+                <a href="{{ Auth::user()->hasRole('admin') ? route('admin.pengaduan.index') : route('dewan.pengaduan.index') }}" wire:navigate class="p-2 rounded-lg bg-white/60 hover:bg-white text-slate-500 hover:text-indigo-600 transition-colors shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </a>
+                <div>
+                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider mr-2 uppercase">Manajemen Tiket</span>
+                    <span class="font-bold text-slate-800">{{ $pengaduan->ticket_code }}</span>
+                </div>
+            </div>
+            
+            <!-- Update Status -->
+            <div class="flex items-center gap-2">
+                <select wire:model="status_baru" wire:change="updateStatus" class="rounded-xl border-slate-300 text-sm font-semibold text-slate-700 bg-white shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="diterima">Diterima</option>
+                    <option value="diverifikasi">Diverifikasi</option>
+                    <option value="diproses">Sedang Diproses</option>
+                    <option value="ditindaklanjuti">Ditindaklanjuti</option>
+                    <option value="selesai">Selesai</option>
+                    <option value="ditolak">Ditolak</option>
+                </select>
+                <div wire:loading wire:target="updateStatus" class="animate-spin h-5 w-5 text-indigo-600">
+                    <svg fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </x-slot>
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        @if (session()->has('success_status'))
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                {{ session('success_status') }}
+            </div>
+        @endif
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Left: Isi Pengaduan -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Data Pengaduan -->
+                <div class="glass p-6 md:p-8 rounded-3xl shadow-lg border border-white/60">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-800">Isi Pengaduan</h2>
+                            <p class="text-sm text-slate-500">{{ $pengaduan->created_at->translatedFormat('l, d F Y H:i') }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/50 rounded-2xl p-5 border border-slate-100 mb-6">
+                        <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">{{ $pengaduan->isi }}</p>
+                    </div>
+                    
+                    <!-- Lampiran Foto -->
+                    @if($pengaduan->lampiran && is_array($pengaduan->lampiran) && count($pengaduan->lampiran) > 0)
+                        <h4 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Lampiran Bukti ({{ count($pengaduan->lampiran) }})
+                        </h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            @foreach($pengaduan->lampiran as $path)
+                                <a href="{{ asset('storage/' . $path) }}" target="_blank" class="block relative group overflow-hidden rounded-xl border border-slate-200 aspect-square">
+                                    <img src="{{ asset('storage/' . $path) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Tanggapan -->
+                <div class="glass p-6 md:p-8 rounded-3xl shadow-lg border border-white/60">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                        Ruang Diskusi & Tanggapan
+                    </h3>
+
+                    <div class="space-y-4 mb-8">
+                        @forelse($pengaduan->tanggapans as $tanggapan)
+                            <div class="flex gap-3 {{ $tanggapan->user_id === Auth::id() ? 'flex-row-reverse' : '' }}">
+                                <div class="w-8 h-8 rounded-full flex-shrink-0 {{ $tanggapan->user_id === Auth::id() ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center font-bold text-xs">
+                                    {{ substr($tanggapan->user->nama ?? 'A', 0, 1) }}
+                                </div>
+                                <div class="{{ $tanggapan->user_id === Auth::id() ? 'bg-indigo-600 text-white rounded-l-2xl rounded-tr-2xl' : 'bg-white border border-slate-200 text-slate-800 rounded-r-2xl rounded-tl-2xl' }} p-4 max-w-[80%] shadow-sm">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-xs font-bold opacity-80">{{ $tanggapan->user->nama ?? 'Staff DPM' }}</span>
+                                        <span class="text-[10px] opacity-60">{{ $tanggapan->created_at->format('H:i, d M') }}</span>
+                                    </div>
+                                    <p class="text-sm">{{ $tanggapan->isi_tanggapan }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-6 text-slate-500 text-sm">Belum ada tanggapan. Jadilah yang pertama memberikan balasan!</div>
+                        @endforelse
+                    </div>
+
+                    <!-- Form Balas -->
+                    <form wire:submit="balasTanggapan" class="mt-4">
+                        <textarea wire:model="isi_tanggapan" rows="3" class="w-full border-slate-200 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 text-sm placeholder:text-slate-400" placeholder="Ketik tanggapan atau instruksi untuk pelapor..."></textarea>
+                        @error('isi_tanggapan') <span class="text-xs text-rose-500">{{ $message }}</span> @enderror
+                        
+                        <div class="flex justify-end mt-3">
+                            <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold shadow-md shadow-indigo-500/30">
+                                <span wire:loading.remove wire:target="balasTanggapan">Kirim Balasan</span>
+                                <span wire:loading wire:target="balasTanggapan">Mengirim...</span>
+                            </button>
+                        </div>
+                        @if (session()->has('success_tanggapan'))
+                            <div class="mt-2 text-emerald-600 text-xs font-bold">{{ session('success_tanggapan') }}</div>
+                        @endif
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right: Info Samping -->
+            <div class="space-y-6">
+                <!-- Info Pelapor -->
+                <div class="glass p-6 rounded-3xl shadow-lg border border-white/60">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Informasi Pelapor</h3>
+                    
+                    @if($pengaduan->mode_privasi === 'umum')
+                        <!-- Mode Umum: Langsung tampilkan dari relasi User -->
+                        <div class="flex flex-col items-center text-center p-4 bg-white/50 rounded-2xl border border-slate-100 mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full text-white flex items-center justify-center text-2xl font-bold shadow-md mb-3">
+                                {{ substr($pengaduan->user->nama ?? 'M', 0, 1) }}
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-lg">{{ $pengaduan->user->nama ?? 'Mahasiswa' }}</h4>
+                            <p class="text-sm text-slate-500 font-mono mt-1">{{ $pengaduan->user->nim ?? '-' }}</p>
+                            @if($pengaduan->user && $pengaduan->user->prodi)
+                                <p class="text-xs font-bold text-indigo-600 mt-2 bg-indigo-50 px-3 py-1 rounded-full">{{ $pengaduan->user->prodi }}</p>
+                            @endif
+                        </div>
+                    @else
+                        <!-- Mode Anonim -->
+                        @if($identitasPelapor)
+                            <!-- Identitas telah didekripsi -->
+                            <div class="flex flex-col items-center text-center p-4 bg-rose-50 rounded-2xl border border-rose-100 mb-4 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">TERDEKRIPSI</div>
+                                <div class="w-16 h-16 bg-gradient-to-tr from-rose-500 to-pink-500 rounded-full text-white flex items-center justify-center text-2xl font-bold shadow-md mb-3 mt-2">
+                                    {{ substr($identitasPelapor['nama'] ?? 'A', 0, 1) }}
+                                </div>
+                                <h4 class="font-bold text-slate-800 text-lg">{{ $identitasPelapor['nama'] ?? 'Anonim' }}</h4>
+                                <p class="text-sm text-slate-500 font-mono mt-1">{{ $identitasPelapor['nim'] ?? '-' }}</p>
+                                <p class="text-xs font-bold text-rose-600 mt-2 bg-rose-100 px-3 py-1 rounded-full">{{ $identitasPelapor['email'] ?? '-' }}</p>
+                            </div>
+                            <div class="text-xs text-rose-500 text-center font-semibold">
+                                *Aktivitas pembukaan identitas ini telah dicatat dalam sistem keamanan (Log Audit).*
+                            </div>
+                        @else
+                            <!-- Identitas Tertutup -->
+                            <div class="flex flex-col items-center text-center p-6 bg-slate-800 text-white rounded-2xl border border-slate-700 mb-4 shadow-inner">
+                                <svg class="w-12 h-12 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                <h4 class="font-bold text-lg">Anonim Terenkripsi</h4>
+                                <p class="text-xs text-slate-400 mt-2">Identitas pelapor dilindungi oleh sistem.</p>
+                            </div>
+                        @endif
+                    @endif
+                </div>
+
+                <div class="glass p-6 rounded-3xl shadow-lg border border-white/60">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Informasi Tiket</h3>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 mb-0.5">Kategori</p>
+                                <p class="text-sm font-bold text-slate-800">{{ $pengaduan->kategori->nama_kategori }}</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 mb-0.5">Privasi</p>
+                                <span class="px-2 py-0.5 rounded text-xs font-bold {{ $pengaduan->mode_privasi === 'anonim' ? 'bg-slate-800 text-white' : 'bg-emerald-100 text-emerald-700' }}">
+                                    {{ strtoupper($pengaduan->mode_privasi) }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
