@@ -74,11 +74,16 @@ new #[Layout('layouts.guest')] class extends Component
 
             <!-- Right side: Forgot Password & Submit -->
             <div class="flex items-center">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                        {{ __('Lupa password?') }}
+                <div class="flex flex-col items-end gap-1">
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
+                            {{ __('Lupa password?') }}
+                        </a>
+                    @endif
+                    <a class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors" href="{{ route('register') }}" wire:navigate>
+                        Belum punya akun? Daftar
                     </a>
-                @endif
+                </div>
 
                 <x-primary-button type="submit" class="ms-4 bg-indigo-600 hover:bg-indigo-700 transition duration-150 ease-in-out shadow-md shadow-indigo-500/30 min-w-[100px] justify-center">
                     <span wire:loading.remove wire:target="login">{{ __('Masuk') }}</span>
