@@ -88,7 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // 4. MAHASISWA ROUTES
     Route::middleware('check.role:mahasiswa')->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-        Route::view('dashboard', 'mahasiswa.dashboard')->name('dashboard');
+        Route::view('dashboard', 'livewire.mahasiswa.dashboard')->name('dashboard');
         
         // Pengaduan Mahasiswa
         Route::get('pengaduan/buat', \App\Livewire\Mahasiswa\BuatPengaduan::class)->name('pengaduan.buat');
