@@ -22,7 +22,7 @@
                         <!-- Massive Typography -->
                         <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-[3.5rem] font-heading font-extrabold tracking-tight text-slate-800 leading-[1.15] mb-6 animate-slide-up [animation-delay:100ms]">
                             Sampaikan <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 animate-gradient-x">Aspirasi,</span><br>
-                            Kawal Kinerja BEM.
+                            Kawal Kinerja BEM POLMED.
                         </h1>
                         
                         <p class="text-base md:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed animate-slide-up [animation-delay:200ms]">
