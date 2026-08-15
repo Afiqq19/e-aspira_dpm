@@ -9,6 +9,7 @@ class DaftarProker extends Component
 {
     public $selectedProker = null;
     public $isModalOpen = false;
+    public $filterTipe = ''; // BEM, HMPS, UKM atau kosong = semua
 
     public function showDetail($id)
     {
@@ -27,6 +28,12 @@ class DaftarProker extends Component
         // Ambil proker yang aktif, urutkan dari yang terbaru, batasi 6 saja untuk landing page
         $prokers = ProgramKerja::with('organisasi')
                     ->where('is_active', true)
+                    ->when($this->filterTipe, function($q) {
+                        $q->whereHas('organisasi', function($q2) {
+                            $q2->where('tipe', $this->filterTipe)
+                               ->orWhere('nama', 'like', '%' . $this->filterTipe . '%');
+                        });
+                    })
                     ->latest()
                     ->take(6)
                     ->get();

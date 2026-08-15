@@ -3,14 +3,18 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h2 class="text-2xl font-bold text-slate-800 tracking-tight">
-                @if(isset($user) && $user->hasRole(['hmps', 'ukm']))
+                @if(isset($user) && $user->hasRole('staff_dewan'))
+                    Beri Evaluasi Program Kerja Organisasi
+                @elseif(isset($user) && $user->hasRole(['hmps', 'ukm']))
                     Beri Evaluasi BEM
                 @else
                     Evaluasi Program Kerja
                 @endif
             </h2>
             <p class="text-sm text-slate-500 mt-1">
-                @if(isset($user) && $user->hasRole(['hmps', 'ukm']))
+                @if(isset($user) && $user->hasRole('staff_dewan'))
+                    Berikan masukan, kritik, dan saran untuk seluruh program kerja BEM, HMPS, dan UKM.
+                @elseif(isset($user) && $user->hasRole(['hmps', 'ukm']))
                     Berikan masukan, kritik, dan saran untuk program kerja BEM.
                 @else
                     Berikan masukan, kritik, dan saran untuk program kerja BEM, HMPS, maupun UKM.

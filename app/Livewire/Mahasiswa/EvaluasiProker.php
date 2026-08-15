@@ -44,10 +44,12 @@ class EvaluasiProker extends Component
         $prokers = ProgramKerja::with('organisasi')
             ->where('is_active', true)
             ->when($user->hasRole(['hmps', 'ukm']), function($q) {
+                // HMPS & UKM hanya bisa evaluasi BEM
                 $q->whereHas('organisasi', function($q2) {
                     $q2->where('nama', 'like', '%BEM%')->orWhere('tipe', 'BEM');
                 });
             })
+            // Staff Dewan bisa evaluasi SEMUA proker (BEM + HMPS + UKM) — tidak ada filter
             ->when($this->search, function($q) {
                 $q->where('nama', 'like', '%' . $this->search . '%')
                   ->orWhereHas('organisasi', function($q2) {
@@ -61,14 +63,18 @@ class EvaluasiProker extends Component
             ->latest()
             ->paginate(12);
             
-        // Ambil daftar organisasi yang punya proker aktif
+        // Ambil daftar organisasi yang punya proker aktif (untuk dropdown filter)
         $orgQuery = \App\Models\Organisasi::whereHas('programKerja', function($q) {
             $q->where('is_active', true);
         });
         
+        // HMPS/UKM hanya bisa filter ke BEM
         if ($user->hasRole(['hmps', 'ukm'])) {
-            $orgQuery->where('nama', 'like', '%BEM%')->orWhere('tipe', 'BEM');
+            $orgQuery->where(function($q) {
+                $q->where('nama', 'like', '%BEM%')->orWhere('tipe', 'BEM');
+            });
         }
+        // Staff Dewan: semua organisasi tampil di dropdown filter
         
         $organisasis = $orgQuery->get();
 

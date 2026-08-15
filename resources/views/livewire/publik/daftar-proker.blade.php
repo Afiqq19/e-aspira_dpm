@@ -1,4 +1,22 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="space-y-8">
+    <!-- Filter Tabs -->
+    <div class="flex flex-wrap justify-center gap-3">
+        <button wire:click="$set('filterTipe', '')" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 {{ $filterTipe === '' ? 'bg-slate-800 text-white shadow-lg shadow-slate-500/20' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50' }}">
+            🏫 Semua Organisasi
+        </button>
+        <button wire:click="$set('filterTipe', 'BEM')" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 {{ $filterTipe === 'BEM' ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/30' : 'bg-white text-slate-600 border border-slate-200 hover:bg-violet-50' }}">
+            🎓 BEM
+        </button>
+        <button wire:click="$set('filterTipe', 'HMPS')" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 {{ $filterTipe === 'HMPS' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white text-slate-600 border border-slate-200 hover:bg-blue-50' }}">
+            📚 HMPS
+        </button>
+        <button wire:click="$set('filterTipe', 'UKM')" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 {{ $filterTipe === 'UKM' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30' : 'bg-white text-slate-600 border border-slate-200 hover:bg-emerald-50' }}">
+            ⚽ UKM
+        </button>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @forelse($prokers as $proker)
         @php
             // Assign color based on organization type or ID
@@ -67,6 +85,7 @@
             <p class="text-slate-500 text-center max-w-md mt-2">Saat ini belum ada program kerja yang dipublikasikan oleh organisasi.</p>
         </div>
     @endforelse
+    </div>{{-- end grid --}}
 
     <!-- Modal Detail Proker -->
     @if($isModalOpen && $selectedProker)
@@ -154,4 +173,4 @@
         </div>
     </div>
     @endif
-</div>
+</div>{{-- end space-y-8 --}}
