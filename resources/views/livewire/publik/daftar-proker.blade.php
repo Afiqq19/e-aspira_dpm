@@ -143,8 +143,8 @@
                         Tutup
                     </button>
                     @auth
-                        @if(auth()->user()->hasRole('mahasiswa') && $selectedProker->is_active)
-                        <a href="{{ route('mahasiswa.evaluasi-proker.index') }}" class="mt-3 w-full inline-flex justify-center items-center rounded-xl border border-indigo-200 shadow-sm px-6 py-2.5 bg-indigo-50 text-base font-semibold text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                        @if((auth()->user()->hasRole('hmps') || auth()->user()->hasRole('ukm')) && $selectedProker->is_active)
+                        <a href="{{ route('organisasi.evaluasi-bem.index') }}" class="mt-3 w-full inline-flex justify-center items-center rounded-xl border border-indigo-200 shadow-sm px-6 py-2.5 bg-indigo-50 text-base font-semibold text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                             Beri Evaluasi
                         </a>
                         @endif

@@ -98,13 +98,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('check.role:mahasiswa')->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         Route::view('dashboard', 'livewire.mahasiswa.dashboard')->name('dashboard');
         
-        // Pengaduan Mahasiswa
         Route::get('pengaduan/buat', \App\Livewire\Mahasiswa\BuatPengaduan::class)->name('pengaduan.buat');
         Route::get('pengaduan', \App\Livewire\Mahasiswa\DaftarPengaduan::class)->name('pengaduan.index');
         Route::get('pengaduan/{ticket_code}', \App\Livewire\Mahasiswa\DetailPengaduan::class)->name('pengaduan.detail');
-        
-        // Evaluasi Program Kerja
-        Route::get('evaluasi-proker', \App\Livewire\Mahasiswa\EvaluasiProker::class)->name('evaluasi-proker.index');
     });
 });
 // ============================================================

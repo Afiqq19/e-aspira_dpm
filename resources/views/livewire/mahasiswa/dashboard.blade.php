@@ -31,20 +31,19 @@
                 </div>
             </a>
 
-            <!-- Evaluasi Proker Card -->
-            <a href="{{ route('mahasiswa.evaluasi-proker.index') }}" wire:navigate class="group relative overflow-hidden glass rounded-3xl p-6 md:p-8 hover:shadow-2xl hover:shadow-rose-500/20 transition-all duration-300 hover:-translate-y-1 border border-white/60">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-rose-500/20 transition-colors"></div>
+            <!-- Lacak Pengaduan Card -->
+            <a href="{{ route('mahasiswa.pengaduan.index') }}" wire:navigate class="group relative overflow-hidden glass rounded-3xl p-6 md:p-8 hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-300 hover:-translate-y-1 border border-white/60">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-emerald-500/20 transition-colors"></div>
                 <div class="flex items-start gap-5">
-                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center shadow-inner group-hover:bg-rose-600 group-hover:text-white transition-colors duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-rose-700 transition-colors">Evaluasi Kinerja BEM</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed">Berikan penilaian, kritik, dan saran terhadap program kerja BEM yang sedang berjalan.</p>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-emerald-700 transition-colors">Lacak Pengaduan Saya</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Pantau status laporan dan aspirasi yang telah Anda kirimkan ke DPM.</p>
                     </div>
                 </div>
             </a>
-
         </div>
 
         <!-- Riwayat Singkat (Optional for future) -->
