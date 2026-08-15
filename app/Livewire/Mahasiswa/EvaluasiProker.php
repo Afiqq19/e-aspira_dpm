@@ -106,11 +106,6 @@ class EvaluasiProker extends Component
             $this->is_anonim = false;
         }
         
-        // Paksa false jika organisasi
-        if (auth()->user()->hasRole(['hmps', 'ukm'])) {
-            $this->is_anonim = false;
-        }
-
         $this->isModalOpen = true;
     }
 
@@ -147,7 +142,8 @@ class EvaluasiProker extends Component
                 'rating' => $this->rating,
                 'komentar' => $finalKomentar,
                 'aspek' => $this->aspek,
-                'is_anonim' => $user->hasRole(['hmps', 'ukm']) ? false : $this->is_anonim,
+                // HMPS/UKM/Staff Dewan boleh anonim, tapi Admin selalu LIHAT nama asli (dihandle di view)
+            'is_anonim' => $this->is_anonim,
             ]
         );
 

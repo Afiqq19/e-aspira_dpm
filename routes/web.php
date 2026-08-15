@@ -72,6 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Kelola Kegiatan
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
+
+        // Beri Evaluasi ke BEM (Staff Dewan bisa ikut memberi evaluasi)
+        Route::get('evaluasi-bem', \App\Livewire\Mahasiswa\EvaluasiProker::class)->name('evaluasi-bem.index');
     });
 
     // 3. HMPS / UKM ROUTES (Organisasi)

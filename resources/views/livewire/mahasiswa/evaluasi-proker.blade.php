@@ -181,7 +181,17 @@
                             </div>
                             
                             <!-- Anonim -->
-                            @if(!isset($user) || !$user->hasRole(['hmps', 'ukm']))
+                            @if(isset($user) && $user->hasRole(['hmps', 'ukm', 'staff_dewan']))
+                            <div class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <div class="flex items-center h-5">
+                                    <input id="is_anonim" wire:model="is_anonim" type="checkbox" class="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-slate-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="is_anonim" class="font-medium text-slate-800">Sembunyikan Nama Saya (Anonim) dari Organisasi Lain</label>
+                                    <p class="text-slate-500 mt-0.5">Jika dicentang, nama Anda akan tampil sebagai <strong>"Anonim"</strong> untuk sesama HMPS/UKM. Namun, <strong class="text-indigo-600">Admin & Staff DPM tetap dapat melihat nama asli Anda</strong>.</p>
+                                </div>
+                            </div>
+                            @else
                             <div class="flex items-start bg-slate-50 p-4 rounded-xl border border-slate-200">
                                 <div class="flex items-center h-5">
                                     <input id="is_anonim" wire:model="is_anonim" type="checkbox" class="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-slate-300 rounded">
@@ -189,16 +199,6 @@
                                 <div class="ml-3 text-sm">
                                     <label for="is_anonim" class="font-medium text-slate-800">Sembunyikan Nama Saya (Anonim)</label>
                                     <p class="text-slate-500">Nama Anda tidak akan ditampilkan kepada publik maupun panitia penyelenggara.</p>
-                                </div>
-                            </div>
-                            @else
-                            <div class="flex items-start bg-amber-50 p-4 rounded-xl border border-amber-200">
-                                <div class="flex items-center h-5">
-                                    <svg class="h-5 w-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label class="font-bold text-amber-800">Evaluasi Organisasi (Terbuka)</label>
-                                    <p class="text-amber-700">Sebagai organisasi (HMPS/UKM), identitas Anda wajib dilampirkan dalam evaluasi ini sebagai bentuk transparansi dan tanggung jawab.</p>
                                 </div>
                             </div>
                             @endif

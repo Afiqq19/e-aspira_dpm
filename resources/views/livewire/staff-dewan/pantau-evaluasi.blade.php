@@ -55,10 +55,18 @@
                 <div class="p-6 flex flex-col flex-1">
                     <div class="flex justify-between items-start mb-3">
                         <div>
-                            @if($evaluasi->is_anonim)
+                            @if(Auth::user()->hasRole(['admin', 'staff_dewan']))
+                                {{-- Admin & Staff DPM selalu lihat nama asli --}}
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-50 text-indigo-700">
+                                    {{ $evaluasi->user->name ?? 'User Terhapus' }}
+                                    @if($evaluasi->is_anonim)
+                                        <span class="ml-1 text-xs text-slate-400">(anonim ke org lain)</span>
+                                    @endif
+                                </span>
+                            @elseif($evaluasi->is_anonim)
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-600">Anonim</span>
                             @else
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700">{{ $evaluasi->user->name ?? 'Mahasiswa' }}</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700">{{ $evaluasi->user->name ?? 'Organisasi' }}</span>
                             @endif
                         </div>
                         
@@ -128,10 +136,18 @@
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 mb-6 space-y-4">
                         <div>
                             <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Pengirim</p>
-                            @if($selectedEvaluasi->is_anonim)
-                                <p class="text-slate-700 font-semibold italic">Mahasiswa (Anonim)</p>
+                            @if(Auth::user()->hasRole(['admin', 'staff_dewan']))
+                                {{-- Admin & Staff DPM: selalu tampil nama asli --}}
+                                <p class="text-slate-700 font-semibold">
+                                    {{ $selectedEvaluasi->user->name ?? 'User Terhapus' }}
+                                    @if($selectedEvaluasi->is_anonim)
+                                        <span class="text-xs text-slate-400 font-normal ml-1">(Anonim ke organisasi lain)</span>
+                                    @endif
+                                </p>
+                            @elseif($selectedEvaluasi->is_anonim)
+                                <p class="text-slate-700 font-semibold italic">Anonim</p>
                             @else
-                                <p class="text-slate-700 font-semibold">{{ $selectedEvaluasi->user->name ?? 'Mahasiswa' }}</p>
+                                <p class="text-slate-700 font-semibold">{{ $selectedEvaluasi->user->name ?? 'Organisasi' }}</p>
                             @endif
                         </div>
                         
