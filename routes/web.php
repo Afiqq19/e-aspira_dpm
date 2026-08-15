@@ -17,6 +17,12 @@ Route::get('/syarat-ketentuan', \App\Livewire\Publik\SyaratKetentuan::class)->na
 Route::get('/kebijakan-privasi', \App\Livewire\Publik\KebijakanPrivasi::class)->name('privasi');
 
 // =====================================================================
+// OAUTH GOOGLE ROUTES
+// =====================================================================
+Route::get('auth/google', [\App\Http\Controllers\Auth\GoogleController::class, 'redirect'])->name('google.login');
+Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleController::class, 'callback']);
+
+// =====================================================================
 // RUTE SETELAH LOGIN (Terlindungi Auth)
 // =====================================================================
 Route::middleware(['auth', 'verified'])->group(function () {
