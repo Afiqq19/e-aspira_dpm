@@ -26,12 +26,10 @@ class GoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            // KUNCI: Wajib email kampus (Bisa diaktifkan nanti saat aplikasi rilis)
-            /*
+            // KUNCI: Wajib email kampus
             if (!Str::endsWith($googleUser->getEmail(), '@students.polmed.ac.id')) {
                 return redirect()->route('login')->with('error', 'Akses Ditolak! Anda wajib menggunakan akun email kampus (@students.polmed.ac.id). Email biasa tidak diizinkan.');
             }
-            */
 
             // Cek apakah user dengan google_id ini sudah ada
             $user = User::where('google_id', $googleUser->getId())->first();
