@@ -156,18 +156,45 @@ class DatabaseSeeder extends Seeder
         );
         $ukmOlahragaAkun->assignRole('ukm');
 
-        // 10. Buat akun Mahasiswa contoh
-        $mahasiswa = User::firstOrCreate(
-            ['nim' => '2205012001'],
+        // 10. Buat akun Mahasiswa contoh (3 Akun)
+        $mhs1 = User::firstOrCreate(
+            ['email' => 'mhs1@students.polmed.ac.id'],
             [
-                'nama'        => 'Mahasiswa Dummy',
-                'name'        => 'Mahasiswa Dummy',
-                'email'       => 'mahasiswa@students.polmed.ac.id',
-                'password'    => Hash::make('password123'),
+                'nim'         => '2205011001',
+                'prodi'       => 'Teknik Komputer',
+                'nama'        => 'Budi Santoso',
+                'name'        => 'Budi Santoso',
+                'password'    => Hash::make('password'),
                 'is_active'   => true,
-            ],
+            ]
         );
-        $mahasiswa->assignRole('mahasiswa');
+        $mhs1->assignRole('mahasiswa');
+
+        $mhs2 = User::firstOrCreate(
+            ['email' => 'mhs2@students.polmed.ac.id'],
+            [
+                'nim'         => '2205011002',
+                'prodi'       => 'Teknik Komputer',
+                'nama'        => 'Siti Aminah',
+                'name'        => 'Siti Aminah',
+                'password'    => Hash::make('password'),
+                'is_active'   => true,
+            ]
+        );
+        $mhs2->assignRole('mahasiswa');
+
+        $mhs3 = User::firstOrCreate(
+            ['email' => 'mhs3@students.polmed.ac.id'],
+            [
+                'nim'         => '2205011003',
+                'prodi'       => 'Teknik Sipil',
+                'nama'        => 'Agus Pratama',
+                'name'        => 'Agus Pratama',
+                'password'    => Hash::make('password'),
+                'is_active'   => true,
+            ]
+        );
+        $mhs3->assignRole('mahasiswa');
 
         // =====================================================================
         // RINGKASAN
@@ -175,7 +202,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('');
         $this->command->info('🎉 Database berhasil di-seed!');
         $this->command->info('');
-        $this->command->info('Gunakan kredensial ini untuk LOGIN (Password semua akun: password123)');
+        $this->command->info('Gunakan kredensial ini untuk LOGIN');
         $this->command->info('');
         $this->command->info('  [ADMIN]');
         $this->command->info('  Username : admin             | Password: password123');
@@ -191,8 +218,10 @@ class DatabaseSeeder extends Seeder
         $this->command->info('  Username : ukmpramuka        | Password: password123');
         $this->command->info('  Username : ukmolahraga       | Password: password123');
         $this->command->info('');
-        $this->command->info('  [MAHASISWA]');
-        $this->command->info('  NIM      : 2205012001        | Password: password123');
+        $this->command->info('  [MAHASISWA (Password: password)]');
+        $this->command->info('  Email    : mhs1@students.polmed.ac.id | NIM: 2205011001');
+        $this->command->info('  Email    : mhs2@students.polmed.ac.id | NIM: 2205011002');
+        $this->command->info('  Email    : mhs3@students.polmed.ac.id | NIM: 2205011003');
         $this->command->warn('');
         $this->command->warn('⚠️  Segera ganti password sebelum production!');
     }
