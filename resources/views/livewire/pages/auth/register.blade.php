@@ -26,8 +26,10 @@ new #[Layout('layouts.guest')] class extends Component
             'nim' => ['required', 'string', 'max:20', 'unique:'.User::class],
             'prodi' => ['required', 'string', 'max:100'],
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class, 'ends_with:@students.polmed.ac.id'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'email.ends_with' => 'Anda wajib mendaftar menggunakan email kampus (@students.polmed.ac.id)',
         ]);
 
         $validated['name'] = $validated['nama']; // name field required by Laravel defaults
