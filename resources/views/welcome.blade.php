@@ -21,13 +21,13 @@
                         
                         <!-- Massive Typography -->
                         <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-[3.5rem] font-heading font-extrabold tracking-tight text-slate-800 leading-[1.15] mb-6 animate-slide-up [animation-delay:100ms]">
-                            Suarakan <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 animate-gradient-x">Aspirasi,</span><br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">DPM Mengawasi</span><br>
-                            BEM, HMPS &amp; UKM.
+                            Lapor <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 animate-gradient-x">Pengaduan</span> &amp;<br>
+                            Suarakan Aspirasi.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">DPM Mengawasi</span> BEM, HMPS &amp; UKM.
                         </h1>
                         
                         <p class="text-base md:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed animate-slide-up [animation-delay:200ms]">
-                            Platform resmi <strong>DPM Polmed</strong> untuk menampung aspirasi <strong>Mahasiswa</strong>, mendukung <strong>HMPS &amp; UKM</strong> dalam mengevaluasi BEM, serta membantu <strong>DPM</strong> mengawasi seluruh program kerja BEM, HMPS, dan UKM di Politeknik Negeri Medan.
+                            Platform resmi <strong>DPM Polmed</strong> — Mahasiswa dapat melaporkan kasus <strong>pelecehan, pelanggaran, dan aspirasi</strong> secara aman &amp; rahasia. DPM mengawasi kinerja <strong>BEM, HMPS, dan UKM</strong> demi kampus yang lebih baik.
                         </p>
                         
                         <!-- CTA Buttons -->
@@ -51,7 +51,7 @@
                         </div>
                         
                         <!-- Trust Indicators -->
-                        <div class="mt-12 flex items-center gap-6 text-sm font-medium text-slate-500 animate-slide-up [animation-delay:400ms]">
+                        <div class="mt-12 flex flex-wrap items-center gap-4 text-sm font-medium text-slate-500 animate-slide-up [animation-delay:400ms]">
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></div>
                                 <span>100% Rahasia</span>
@@ -59,6 +59,10 @@
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
                                 <span>Respons Cepat</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
+                                <span>Aman &amp; Terlindungi</span>
                             </div>
                         </div>
                     </div>
