@@ -22,11 +22,12 @@
                         <!-- Massive Typography -->
                         <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-[3.5rem] font-heading font-extrabold tracking-tight text-slate-800 leading-[1.15] mb-6 animate-slide-up [animation-delay:100ms]">
                             Lapor <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 animate-gradient-x">Pengaduan,</span><br>
-                            Sampaikan Aspirasi & Kawal BEM.
+                            Kawal BEM, HMPS<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">&amp; UKM.</span>
                         </h1>
                         
                         <p class="text-base md:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed animate-slide-up [animation-delay:200ms]">
-                            Ruang digital yang aman dan transparan bagi <strong>Mahasiswa</strong> untuk menyuarakan pengaduan, serta wadah resmi bagi <strong>HMPS & UKM</strong> untuk mengawal dan mengevaluasi Program Kerja BEM Politeknik Negeri Medan.
+                            Ruang digital resmi <strong>DPM Polmed</strong> — Wadah bagi <strong>Mahasiswa</strong> menyuarakan pengaduan &amp; aspirasi, serta media pengawasan bagi <strong>HMPS &amp; UKM</strong> dalam mengevaluasi Program Kerja BEM, serta bagi <strong>DPM</strong> untuk mengawasi seluruh program kerja organisasi di Politeknik Negeri Medan.
                         </p>
                         
                         <!-- CTA Buttons -->
@@ -161,6 +162,35 @@
                 <p class="mt-4 text-slate-600 max-w-2xl mx-auto text-lg">
                     Dewan Perwakilan Mahasiswa Politeknik Negeri Medan adalah lembaga legislatif tertinggi yang hadir untuk mengawal kedaulatan mahasiswa, memastikan aspirasi tersampaikan, dan mengawasi jalannya roda organisasi kampus.
                 </p>
+
+                <!-- Role Cards -->
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    <!-- Mahasiswa -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-3xl p-6 flex flex-col gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Mahasiswa</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Kirim pengaduan & aspirasi secara anonim dan aman. DPM memastikan setiap suara Anda diproses dengan transparan.</p>
+                    </div>
+                    <!-- HMPS & UKM -->
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 rounded-3xl p-6 flex flex-col gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">HMPS &amp; UKM</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Evaluasi dan kritik Program Kerja BEM secara resmi melalui platform ini. DPM menjamin setiap evaluasi sampai ke tangan yang tepat.</p>
+                    </div>
+                    <!-- DPM -->
+                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-3xl p-6 flex flex-col gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">DPM (Pengawas)</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Memantau & mengawasi seluruh program kerja BEM, HMPS, dan UKM. Menindaklanjuti setiap pengaduan dan evaluasi dari sivitas kampus.</p>
+                    </div>
+                </div>
+
                 <div class="mt-10">
                     <a href="{{ route('tentang') }}" wire:navigate class="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold shadow-lg hover:-translate-y-1 transition-all">
                         Kenali DPM Lebih Lanjut
