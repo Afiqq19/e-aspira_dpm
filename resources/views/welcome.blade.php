@@ -21,13 +21,13 @@
                         
                         <!-- Massive Typography -->
                         <h1 class="text-4xl sm:text-5xl lg:text-5xl xl:text-[3.5rem] font-heading font-extrabold tracking-tight text-slate-800 leading-[1.15] mb-6 animate-slide-up [animation-delay:100ms]">
-                            Lapor <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 animate-gradient-x">Pengaduan,</span><br>
-                            Kawal BEM, HMPS<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">&amp; UKM.</span>
+                            Suarakan <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 animate-gradient-x">Aspirasi,</span><br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">DPM Mengawasi</span><br>
+                            BEM, HMPS &amp; UKM.
                         </h1>
                         
                         <p class="text-base md:text-lg text-slate-500 mb-10 max-w-xl leading-relaxed animate-slide-up [animation-delay:200ms]">
-                            Ruang digital resmi <strong>DPM Polmed</strong> — Wadah bagi <strong>Mahasiswa</strong> menyuarakan pengaduan &amp; aspirasi, serta media pengawasan bagi <strong>HMPS &amp; UKM</strong> dalam mengevaluasi Program Kerja BEM, serta bagi <strong>DPM</strong> untuk mengawasi seluruh program kerja organisasi di Politeknik Negeri Medan.
+                            Platform resmi <strong>DPM Polmed</strong> untuk menampung aspirasi <strong>Mahasiswa</strong>, mendukung <strong>HMPS &amp; UKM</strong> dalam mengevaluasi BEM, serta membantu <strong>DPM</strong> mengawasi seluruh program kerja BEM, HMPS, dan UKM di Politeknik Negeri Medan.
                         </p>
                         
                         <!-- CTA Buttons -->
@@ -160,7 +160,7 @@
                 </div>
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-800 tracking-tight">Lebih Dekat dengan DPM</h2>
                 <p class="mt-4 text-slate-600 max-w-2xl mx-auto text-lg">
-                    Dewan Perwakilan Mahasiswa Politeknik Negeri Medan adalah lembaga legislatif tertinggi yang hadir untuk mengawal kedaulatan mahasiswa, memastikan aspirasi tersampaikan, dan mengawasi jalannya roda organisasi kampus.
+                    <strong>DPM Polmed</strong> adalah lembaga legislatif mahasiswa yang bertugas mengawasi kinerja <strong>BEM, HMPS, dan UKM</strong>, memastikan setiap aspirasi mahasiswa tersampaikan, serta menjaga transparansi dan akuntabilitas organisasi kampus.
                 </p>
 
                 <!-- Role Cards -->
@@ -171,7 +171,7 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-800">Mahasiswa</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Kirim pengaduan & aspirasi secara anonim dan aman. DPM memastikan setiap suara Anda diproses dengan transparan.</p>
+                        <p class="text-sm text-slate-500 leading-relaxed">Sampaikan pengaduan dan aspirasi secara aman dan rahasia. DPM akan menampung dan menindaklanjuti setiap laporan Anda.</p>
                     </div>
                     <!-- HMPS & UKM -->
                     <div class="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 rounded-3xl p-6 flex flex-col gap-3">
@@ -179,15 +179,15 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-800">HMPS &amp; UKM</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Evaluasi dan kritik Program Kerja BEM secara resmi melalui platform ini. DPM menjamin setiap evaluasi sampai ke tangan yang tepat.</p>
+                        <p class="text-sm text-slate-500 leading-relaxed">Berikan evaluasi dan kritik terhadap Program Kerja BEM secara resmi. DPM memantau setiap masukan dan memastikannya ditindaklanjuti.</p>
                     </div>
                     <!-- DPM -->
                     <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-3xl p-6 flex flex-col gap-3">
                         <div class="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-800">DPM (Pengawas)</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Memantau & mengawasi seluruh program kerja BEM, HMPS, dan UKM. Menindaklanjuti setiap pengaduan dan evaluasi dari sivitas kampus.</p>
+                        <h3 class="text-lg font-bold text-slate-800">DPM Polmed</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Mengawasi kinerja BEM, HMPS, dan UKM. Setiap pengaduan mahasiswa dan evaluasi dari organisasi akan diproses langsung oleh DPM.</p>
                     </div>
                 </div>
 
