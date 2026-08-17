@@ -4,6 +4,7 @@ namespace App\Livewire\StaffDewan;
 
 use App\Models\Pengaduan;
 use App\Models\TanggapanPengaduan;
+use App\Models\User;
 use App\Services\EnkripsiIdentitasService;
 use App\Traits\MencatatAktivitas;
 use Illuminate\Support\Facades\Auth;
@@ -25,17 +26,54 @@ class DetailPengaduan extends Component
     // Decrypted Identity
     public $identitasPelapor = null;
 
-    public function mount($ticket_code, EnkripsiIdentitasService $enkripsiService)
+    public function mount($ticket_code)
     {
         $this->ticket_code = $ticket_code;
         $this->pengaduan = Pengaduan::with(['kategori', 'tanggapans.user', 'user'])->where('ticket_code', $ticket_code)->firstOrFail();
         
         $this->status_baru = $this->pengaduan->status;
+        
+        // Identitas pelapor anonim TIDAK DIBUKA secara otomatis.
+        $this->identitasPelapor = null;
+    }
 
-        // Buka identitas otomatis jika mode anonim dan user berhak (opsional: atau biarkan tertutup sampai diklik)
-        // Sesuai UI sebelumnya, Staff bisa buka jika ada permission 'penanganan_kasus_sensitif'
-        if ($this->pengaduan->mode_privasi === 'anonim' && Auth::user()->can('penanganan_kasus_sensitif')) {
+    public function bukaIdentitasDarurat(EnkripsiIdentitasService $enkripsiService)
+    {
+        // Hanya admin yang boleh melakukan ini
+        if (!Auth::user()->hasRole('admin')) {
+            abort(403, 'Hanya Admin yang dapat membuka identitas anonim.');
+        }
+
+        if ($this->pengaduan->mode_privasi === 'anonim') {
             $this->identitasPelapor = $enkripsiService->bukaIdentitas($this->pengaduan);
+            
+            // Catat ke log bahwa admin telah membuka identitas ini
+            $this->catatLogBiasa('buka_identitas_darurat', $this->pengaduan, [
+                'ticket_code' => $this->ticket_code,
+                'alasan'      => 'Dibuka manual oleh Admin',
+            ]);
+            
+            session()->flash('success_identitas', 'Identitas asli pelapor berhasil dibuka untuk keperluan darurat.');
+        }
+    }
+
+    public function suspendPelapor()
+    {
+        // Hanya admin yang boleh melakukan ini
+        if (!Auth::user()->hasRole('admin')) {
+            abort(403, 'Hanya Admin yang dapat memblokir pengguna.');
+        }
+
+        if ($this->identitasPelapor && isset($this->identitasPelapor['user_id'])) {
+            $userId = $this->identitasPelapor['user_id'];
+            User::where('id', $userId)->update(['is_active' => false]);
+            
+            $this->catatLogBiasa('suspend_pelapor', $this->pengaduan, [
+                'ticket_code' => $this->ticket_code,
+                'user_id_suspended' => $userId,
+            ]);
+
+            session()->flash('success_suspend', 'Akun pelapor berhasil diblokir. Pelapor tidak akan bisa login lagi.');
         }
     }
 
