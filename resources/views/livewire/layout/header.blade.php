@@ -1,12 +1,19 @@
 <header class="h-16 border-b border-white border-opacity-20 glass sticky top-0 z-20 px-6 sm:px-8 flex items-center justify-between shadow-sm">
     <div class="flex items-center flex-1">
         <!-- Search bar (opsional) -->
-        <div class="relative w-full max-w-md hidden sm:block">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-            <input type="text" class="block w-full pl-10 pr-3 py-2 border-none rounded-xl bg-slate-100 bg-opacity-50 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="Cari layanan, pengaduan, atau informasi...">
-        </div>
+        <form wire:submit.prevent="searchTicket" class="relative w-full max-w-md hidden sm:block">
+            <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer hover:text-indigo-600 transition-colors">
+                <svg class="h-5 w-5 text-slate-400 hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
+            <input type="text" wire:model="searchQuery" class="block w-full pl-10 pr-3 py-2 border-none rounded-xl bg-slate-100 bg-opacity-50 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-sm" placeholder="Lacak atau cari tiket (Format: PLP-...)" title="Tekan Enter untuk mencari">
+            
+            @error('searchQuery')
+                <div class="absolute top-full left-0 mt-1.5 bg-rose-50 text-rose-600 text-xs px-3 py-2 rounded-lg border border-rose-200 shadow-md font-bold z-50 flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    {{ $message }}
+                </div>
+            @enderror
+        </form>
     </div>
     
     <div class="flex items-center gap-4">
