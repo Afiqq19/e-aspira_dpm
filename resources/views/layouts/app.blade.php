@@ -43,5 +43,50 @@
                 
             </main>
         </div>
+        <!-- SweetAlert2 untuk Pop-up Modern -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.directive('confirm', ({ el, directive, component, cleanup }) => {
+                    let content = directive.expression;
+                    
+                    let onClick = e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        Swal.fire({
+                            title: 'Konfirmasi Tindakan',
+                            text: content,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#4f46e5',
+                            cancelButtonColor: '#ef4444',
+                            confirmButtonText: 'Ya, Lanjutkan',
+                            cancelButtonText: 'Batal',
+                            customClass: {
+                                popup: 'rounded-2xl shadow-2xl border border-slate-100',
+                                title: 'font-bold text-slate-800',
+                                htmlContainer: 'text-slate-600 text-sm mt-2',
+                                confirmButton: 'px-5 py-2.5 rounded-xl font-bold shadow-md shadow-indigo-500/30',
+                                cancelButton: 'px-5 py-2.5 rounded-xl font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 border-none'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Eksekusi fungsi asli
+                                el.removeAttribute('wire:confirm');
+                                el.click();
+                                el.setAttribute('wire:confirm', content);
+                            }
+                        });
+                    };
+                    
+                    el.addEventListener('click', onClick, { capture: true });
+                    
+                    cleanup(() => {
+                        el.removeEventListener('click', onClick, { capture: true });
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

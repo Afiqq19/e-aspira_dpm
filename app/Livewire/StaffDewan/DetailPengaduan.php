@@ -48,7 +48,7 @@ class DetailPengaduan extends Component
             $this->identitasPelapor = $enkripsiService->bukaIdentitas($this->pengaduan);
             
             // Catat ke log bahwa admin telah membuka identitas ini
-            $this->catatLogBiasa('buka_identitas_darurat', $this->pengaduan, [
+            $this->catatLogSensitif('buka_identitas_darurat', $this->pengaduan, [
                 'ticket_code' => $this->ticket_code,
                 'alasan'      => 'Dibuka manual oleh Admin',
             ]);
@@ -68,7 +68,7 @@ class DetailPengaduan extends Component
             $userId = $this->identitasPelapor['user_id'];
             User::where('id', $userId)->update(['is_active' => false]);
             
-            $this->catatLogBiasa('suspend_pelapor', $this->pengaduan, [
+            $this->catatLogSensitif('suspend_pelapor', $this->pengaduan, [
                 'ticket_code' => $this->ticket_code,
                 'user_id_suspended' => $userId,
             ]);
@@ -90,7 +90,7 @@ class DetailPengaduan extends Component
             'is_internal' => false,
         ]);
 
-        $this->catatLogBiasa('balas_tanggapan', $this->pengaduan, [
+        $this->catatLogSensitif('balas_tanggapan', $this->pengaduan, [
             'ticket_code' => $this->ticket_code,
             'oleh' => Auth::user()->nama,
         ]);
@@ -106,7 +106,7 @@ class DetailPengaduan extends Component
             $this->pengaduan->status = $this->status_baru;
             $this->pengaduan->save();
 
-            $this->catatLogBiasa('update_status', $this->pengaduan, [
+            $this->catatLogSensitif('update_status', $this->pengaduan, [
                 'ticket_code' => $this->ticket_code,
                 'status_baru' => $this->status_baru,
             ]);
