@@ -100,7 +100,7 @@ class DetailPengaduan extends Component
         session()->flash('success_tanggapan', 'Tanggapan berhasil dikirim!');
     }
 
-    public function updateStatus()
+    public function updatedStatusBaru()
     {
         if ($this->status_baru !== $this->pengaduan->status) {
             $this->pengaduan->status = $this->status_baru;
@@ -111,7 +111,7 @@ class DetailPengaduan extends Component
                 'status_baru' => $this->status_baru,
             ]);
 
-            session()->flash('success_status', 'Status berhasil diperbarui!');
+            session()->flash('success_status', 'Status berhasil diperbarui menjadi ' . strtoupper($this->status_baru) . '!');
         }
     }
 
