@@ -19,6 +19,7 @@ class BuatPengaduan extends Component
     use WithFileUploads;
 
     public $kategori_id;
+    public $kategori_lainnya = ''; // untuk input jika pilih 'Lainnya'
     public $isi;
     public $mode_privasi = 'umum';
     
@@ -35,19 +36,25 @@ class BuatPengaduan extends Component
     public function submit(EnkripsiIdentitasService $enkripsiService)
     {
         $this->validate([
-            'kategori_id' => 'required|exists:kategori_pengaduan,id',
-            'isi' => 'required|string|min:20',
-            'mode_privasi' => 'required|in:umum,anonim',
-            'fotos' => 'nullable|array|max:3',
-            'fotos.*' => 'image|max:10240', // Maksimal 10MB per foto
+            'kategori_id'      => 'required|exists:kategori_pengaduan,id',
+            'kategori_lainnya' => 'nullable|string|max:100',
+            'isi'              => 'required|string|min:20',
+            'mode_privasi'     => 'required|in:umum,anonim',
+            'fotos'            => 'nullable|array|max:3',
+            'fotos.*'          => 'image|max:10240',
         ], [
-            'isi.min' => 'Isi pengaduan minimal 20 karakter untuk kejelasan.',
-            'fotos.max' => 'Maksimal hanya boleh mengunggah 3 foto.',
-            'fotos.*.image' => 'File harus berupa gambar.',
-            'fotos.*.max' => 'Ukuran setiap foto maksimal 10MB.',
+            'isi.min'          => 'Isi pengaduan minimal 20 karakter untuk kejelasan.',
+            'fotos.max'        => 'Maksimal hanya boleh mengunggah 3 foto.',
+            'fotos.*.image'    => 'File harus berupa gambar.',
+            'fotos.*.max'      => 'Ukuran setiap foto maksimal 10MB.',
         ]);
 
+        // Jika kategori Lainnya, tambahkan keterangan ke isi
         $kategori = KategoriPengaduan::find($this->kategori_id);
+        if ($kategori && strtolower($kategori->nama_kategori) === 'lainnya' && !empty($this->kategori_lainnya)) {
+            $this->isi = '[Kategori: ' . $this->kategori_lainnya . ']
+' . $this->isi;
+        }
         
         $penanganan_khusus = $kategori->level_sensitivitas === 'tinggi' ? 1 : 0;
         

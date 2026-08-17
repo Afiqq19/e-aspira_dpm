@@ -1,139 +1,228 @@
 <div>
     <x-slot name="header">
-        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium mr-3">PENGADUAN</span>
-        Buat Pengaduan Baru
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-rose-500/30">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            </div>
+            <div>
+                <h2 class="font-heading font-bold text-xl text-slate-800 leading-tight">Buat Laporan / Pengaduan</h2>
+                <p class="text-sm text-slate-500 font-medium">Sampaikan aspirasi atau laporan Anda kepada DPM secara aman.</p>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto">
-        <div class="glass p-8 rounded-3xl shadow-xl shadow-indigo-500/10 border-t border-t-white/60">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6">Formulir Pengaduan & Aspirasi</h2>
-            
-            <form wire:submit="submit" class="space-y-6">
-                <!-- Kategori -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori Pengaduan <span class="text-rose-500">*</span></label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        @foreach($kategoriList as $kat)
-                            <label class="relative flex cursor-pointer rounded-xl border {{ $kategori_id == $kat->id ? 'border-indigo-500 bg-indigo-50/50 ring-1 ring-indigo-500' : 'border-slate-200 bg-white/50 hover:bg-slate-50' }} p-4 shadow-sm focus:outline-none transition-all">
-                                <input type="radio" wire:model.live="kategori_id" value="{{ $kat->id }}" class="sr-only">
-                                <span class="flex flex-1">
-                                    <span class="flex flex-col">
-                                        <span class="block text-sm font-medium text-slate-900">{{ $kat->nama_kategori }}</span>
-                                        @if($kat->level_sensitivitas === 'tinggi')
-                                            <span class="mt-1 flex items-center text-xs text-rose-500 font-medium">
-                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                                Kategori Sensitif (Otomatis Anonim)
-                                            </span>
-                                        @endif
-                                    </span>
-                                </span>
-                                @if($kategori_id == $kat->id)
-                                    <svg class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+    <div class="max-w-3xl mx-auto space-y-6">
+
+        {{-- Flash Success --}}
+        @if(session('success'))
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-2xl flex items-center gap-3">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span class="font-semibold text-sm">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        <form wire:submit="submit" class="space-y-6">
+
+            {{-- LANGKAH 1: Pilih Kategori --}}
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/60 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shrink-0">1</div>
+                    <h3 class="text-lg font-bold text-slate-800">Pilih Kategori Laporan</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    @foreach($kategoriList as $kat)
+                        @php
+                            $isSensitif = $kat->level_sensitivitas === 'tinggi';
+                            $isSelected = $kategori_id == $kat->id;
+                            $icons = [
+                                'akademik'   => 'M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z',
+                                'fasilitas'  => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+                                'kemahasiswaan' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+                                'pelecehan'  => 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
+                                'lainnya'    => 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+                            ];
+                            $slug = strtolower(preg_replace('/[^a-z]/i', '', $kat->nama_kategori));
+                            $iconPath = $icons[$slug] ?? $icons['lainnya'];
+                            $colors = $isSensitif
+                                ? ($isSelected ? 'border-rose-500 bg-rose-50 ring-2 ring-rose-400' : 'border-rose-200 bg-rose-50/50 hover:border-rose-400')
+                                : ($isSelected ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-400' : 'border-slate-200 bg-white hover:border-indigo-300 hover:bg-indigo-50/30');
+                        @endphp
+                        <label class="relative flex cursor-pointer rounded-2xl border {{ $colors }} p-4 transition-all duration-200 group">
+                            <input type="radio" wire:model.live="kategori_id" value="{{ $kat->id }}" class="sr-only">
+                            <div class="flex items-start gap-4 w-full">
+                                <div class="w-10 h-10 rounded-xl {{ $isSensitif ? 'bg-rose-100 text-rose-600' : 'bg-indigo-100 text-indigo-600' }} flex items-center justify-center shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $iconPath }}"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="block text-sm font-bold text-slate-800">{{ $kat->nama_kategori }}</span>
+                                    @if($isSensitif)
+                                        <span class="inline-flex items-center gap-1 mt-1 text-xs text-rose-600 font-semibold">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                            Otomatis Anonim
+                                        </span>
+                                    @endif
+                                </div>
+                                @if($isSelected)
+                                    <svg class="w-5 h-5 {{ $isSensitif ? 'text-rose-500' : 'text-indigo-600' }} shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/>
                                     </svg>
                                 @endif
-                            </label>
+                            </div>
+                        </label>
+                    @endforeach
+                </div>
+                @error('kategori_id') <p class="text-xs text-rose-500 mt-2 font-medium">{{ $message }}</p> @enderror
+
+                {{-- Input "Lainnya" --}}
+                @php
+                    $selectedKat = $kategori_id ? $kategoriList->firstWhere('id', $kategori_id) : null;
+                    $isLainnya = $selectedKat && strtolower($selectedKat->nama_kategori) === 'lainnya';
+                @endphp
+                @if($isLainnya)
+                <div class="mt-4 animate-fade-in">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Sebutkan jenis laporan Anda <span class="text-rose-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        wire:model="kategori_lainnya"
+                        class="block w-full rounded-xl border-slate-200 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-4 py-3"
+                        placeholder="Contoh: Bullying, Diskriminasi, Korupsi Dana, dll."
+                    >
+                    @error('kategori_lainnya') <p class="text-xs text-rose-500 mt-1">{{ $message }}</p> @enderror
+                </div>
+                @endif
+            </div>
+
+            {{-- LANGKAH 2: Privasi --}}
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/60 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shrink-0">2</div>
+                    <h3 class="text-lg font-bold text-slate-800">Pengaturan Identitas</h3>
+                </div>
+
+                @php
+                    $isSensitifMode = false;
+                    if($kategori_id) {
+                        $k = $kategoriList->firstWhere('id', $kategori_id);
+                        if($k && $k->level_sensitivitas === 'tinggi') $isSensitifMode = true;
+                    }
+                @endphp
+
+                @if($isSensitifMode)
+                    <div class="flex items-start gap-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-rose-800">Identitas Anda Dilindungi Otomatis</p>
+                            <p class="text-xs text-rose-600 mt-1">Kategori ini bersifat sensitif. Identitas Anda otomatis dienkripsi dengan AES-256 dan hanya dapat dibuka oleh tim khusus DPM jika benar-benar diperlukan.</p>
+                        </div>
+                    </div>
+                @else
+                    <div class="flex items-center justify-between p-5 rounded-2xl border {{ $mode_privasi === 'anonim' ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-200' }} transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl {{ $mode_privasi === 'anonim' ? 'bg-slate-700 text-slate-300' : 'bg-indigo-100 text-indigo-600' }} flex items-center justify-center shrink-0 transition-colors">
+                                @if($mode_privasi === 'anonim')
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                @else
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                @endif
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold {{ $mode_privasi === 'anonim' ? 'text-white' : 'text-slate-800' }}">
+                                    {{ $mode_privasi === 'anonim' ? '🔒 Laporan Anonim' : '👤 Laporan dengan Nama' }}
+                                </p>
+                                <p class="text-xs mt-1 {{ $mode_privasi === 'anonim' ? 'text-slate-400' : 'text-slate-500' }}">
+                                    @if($mode_privasi === 'anonim')
+                                        Nama dan NIM Anda <strong class="text-slate-300">disembunyikan</strong>. DPM tidak akan tahu siapa pengirimnya.
+                                    @else
+                                        Nama dan NIM Anda <strong>terlihat</strong> oleh Staff DPM yang menangani laporan ini.
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-4">
+                            <input type="checkbox" wire:model.live="mode_privasi" value="anonim" class="sr-only peer" {{ $mode_privasi === 'anonim' ? 'checked' : '' }}>
+                            <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                        </label>
+                    </div>
+                @endif
+            </div>
+
+            {{-- LANGKAH 3: Isi Laporan --}}
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/60 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center shrink-0">3</div>
+                    <h3 class="text-lg font-bold text-slate-800">Isi Laporan / Aspirasi</h3>
+                </div>
+
+                <textarea
+                    wire:model="isi"
+                    rows="7"
+                    class="block w-full rounded-2xl border-slate-200 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm px-4 py-3 resize-none"
+                    placeholder="Ceritakan secara rinci apa yang terjadi. Sertakan: siapa, kapan, di mana, apa yang terjadi, dan bukti jika ada..."
+                ></textarea>
+                <p class="mt-2 text-xs text-slate-400">Minimal 20 karakter. Semakin rinci, semakin cepat DPM dapat menindaklanjuti laporan Anda.</p>
+                @error('isi') <p class="text-xs text-rose-500 mt-1 font-medium">{{ $message }}</p> @enderror
+            </div>
+
+            {{-- LANGKAH 4: Lampiran --}}
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/60 shadow-xl shadow-slate-200/50">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 rounded-full bg-slate-400 text-white text-sm font-bold flex items-center justify-center shrink-0">4</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800">Lampiran Bukti <span class="text-xs font-normal text-slate-400 ml-1">(Opsional)</span></h3>
+                        <p class="text-xs text-slate-500">Foto, tangkapan layar, atau dokumen. Maks 3 foto, 10MB each.</p>
+                    </div>
+                </div>
+
+                <label for="file-upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer hover:bg-indigo-50/50 hover:border-indigo-300 transition-all duration-200 group">
+                    <div class="flex flex-col items-center justify-center gap-2">
+                        <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-indigo-100 flex items-center justify-center transition-colors">
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <p class="text-sm text-slate-500 group-hover:text-indigo-600 font-medium transition-colors">
+                            <span wire:loading.remove wire:target="fotos">Klik atau seret foto ke sini</span>
+                            <span wire:loading wire:target="fotos" class="text-indigo-600">Mengunggah...</span>
+                        </p>
+                    </div>
+                    <input id="file-upload" wire:model="fotos" type="file" class="sr-only" multiple accept="image/*">
+                </label>
+                @error('fotos') <p class="text-xs text-rose-500 mt-2 font-medium">{{ $message }}</p> @enderror
+                @error('fotos.*') <p class="text-xs text-rose-500 mt-1 font-medium">{{ $message }}</p> @enderror
+
+                @if($fotos)
+                    <div class="mt-4 grid grid-cols-3 gap-3">
+                        @foreach($fotos as $foto)
+                            <div class="relative rounded-2xl overflow-hidden border-2 border-indigo-200 shadow-sm aspect-square bg-slate-100">
+                                <img src="{{ $foto->temporaryUrl() }}" class="w-full h-full object-cover">
+                            </div>
                         @endforeach
                     </div>
-                    @error('kategori_id') <span class="text-xs text-rose-500 mt-2 block">{{ $message }}</span> @enderror
-                </div>
+                @endif
+            </div>
 
-                <!-- Mode Privasi -->
-                <div class="p-5 rounded-2xl border {{ $mode_privasi === 'anonim' ? 'bg-slate-800 border-slate-700' : 'bg-indigo-50 border-indigo-100' }} transition-colors duration-300">
-                    <div class="flex items-start md:items-center justify-between flex-col md:flex-row gap-4">
-                        <div>
-                            <h4 class="text-base font-bold {{ $mode_privasi === 'anonim' ? 'text-white' : 'text-indigo-900' }}">Mode Pengiriman: {{ ucfirst($mode_privasi) }}</h4>
-                            <p class="text-sm mt-1 {{ $mode_privasi === 'anonim' ? 'text-slate-400' : 'text-indigo-700/70' }}">
-                                @if($mode_privasi === 'anonim')
-                                    Identitas Anda disamarkan dengan enkripsi AES-256. Hanya tim khusus yang dapat membukanya jika diperlukan secara mendesak.
-                                @else
-                                    Identitas Anda (Nama & NIM) akan terlihat oleh Staff Dewan yang memproses laporan ini.
-                                @endif
-                            </p>
-                        </div>
-                        <div class="shrink-0">
-                            @php
-                                $isSensitif = false;
-                                if($kategori_id) {
-                                    $k = \App\Models\KategoriPengaduan::find($kategori_id);
-                                    if($k && $k->level_sensitivitas === 'tinggi') $isSensitif = true;
-                                }
-                            @endphp
-                            
-                            @if($isSensitif)
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-800">
-                                    Terkunci di Mode Anonim
-                                </span>
-                            @else
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" wire:model.live="mode_privasi" value="anonim" class="sr-only peer" {{ $mode_privasi === 'anonim' ? 'checked' : '' }}>
-                                    <div class="w-14 h-7 bg-indigo-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-indigo-600"></div>
-                                    <span class="ml-3 text-sm font-medium {{ $mode_privasi === 'anonim' ? 'text-white' : 'text-slate-700' }}">Aktifkan Anonim</span>
-                                </label>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+            {{-- Submit --}}
+            <div class="flex justify-end gap-3 pb-6">
+                <a href="{{ route('home') }}" class="px-6 py-3 rounded-2xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors">
+                    Batal
+                </a>
+                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2 min-w-[160px] justify-center">
+                    <span wire:loading.remove wire:target="submit" class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        Kirim Laporan
+                    </span>
+                    <span wire:loading.flex wire:target="submit" class="items-center gap-2">
+                        <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        Mengirim...
+                    </span>
+                </button>
+            </div>
 
-                <!-- Isi Laporan -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Isi Pengaduan / Aspirasi <span class="text-rose-500">*</span></label>
-                    <textarea wire:model="isi" rows="6" class="block w-full rounded-xl border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white/50 sm:text-sm p-4" placeholder="Jelaskan detail aspirasi atau kejadian yang ingin Anda laporkan secara rinci..."></textarea>
-                    <p class="mt-2 text-xs text-slate-500">Minimal 20 karakter. Jelaskan dengan runtut 5W1H jika ini berupa laporan kejadian.</p>
-                    @error('isi') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
-                </div>
-
-                <!-- Unggah Lampiran Foto -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Lampiran Bukti Foto (Opsional)</label>
-                    
-                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-xl hover:bg-slate-50 hover:border-indigo-400 transition-colors relative">
-                        <div class="space-y-1 text-center">
-                            <svg class="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <div class="flex justify-center text-sm text-slate-600">
-                                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-1">
-                                    <span>Unggah Foto</span>
-                                    <input id="file-upload" wire:model="fotos" type="file" class="sr-only" multiple accept="image/*">
-                                </label>
-                                <p class="pl-1">atau seret dan lepas</p>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-2">
-                                PNG, JPG up to 10MB (Maksimal 3 Foto). 
-                                <span wire:loading wire:target="fotos" class="text-indigo-600 font-bold ml-1">Mengunggah...</span>
-                            </p>
-                        </div>
-                    </div>
-                    @error('fotos') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
-                    @error('fotos.*') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
-
-                    <!-- Preview Foto -->
-                    @if ($fotos)
-                        <div class="mt-4 grid grid-cols-3 gap-4">
-                            @foreach($fotos as $foto)
-                                <div class="relative rounded-lg overflow-hidden border border-slate-200 shadow-sm aspect-square bg-slate-100">
-                                    <img src="{{ $foto->temporaryUrl() }}" class="w-full h-full object-cover">
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-
-                <div class="pt-4 flex justify-end gap-3 border-t border-slate-100">
-                    <a href="{{ route('home') }}" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors">Batal</a>
-                    <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 flex items-center gap-2 min-w-[150px] justify-center">
-                        <span wire:loading.remove wire:target="submit" class="flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                            Kirim Laporan
-                        </span>
-                        <span wire:loading.flex wire:target="submit" class="items-center">
-                            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                            Mengirim...
-                        </span>
-                    </button>
-                </div>
-            </form>
-        </div>
+        </form>
     </div>
 </div>
