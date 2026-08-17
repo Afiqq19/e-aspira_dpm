@@ -123,21 +123,21 @@
                         </div>
                     </div>
                 @else
-                    <div class="flex items-center justify-between p-5 rounded-2xl border {{ $mode_privasi === 'anonim' ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-200' }} transition-all duration-300">
+                    <div class="flex items-center justify-between p-5 rounded-2xl border {{ $is_anonim ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-200' }} transition-all duration-300">
                         <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl {{ $mode_privasi === 'anonim' ? 'bg-slate-700 text-slate-300' : 'bg-indigo-100 text-indigo-600' }} flex items-center justify-center shrink-0 transition-colors">
-                                @if($mode_privasi === 'anonim')
+                            <div class="w-10 h-10 rounded-xl {{ $is_anonim ? 'bg-slate-700 text-slate-300' : 'bg-indigo-100 text-indigo-600' }} flex items-center justify-center shrink-0 transition-colors">
+                                @if($is_anonim)
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
                                 @else
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 @endif
                             </div>
                             <div>
-                                <p class="text-sm font-bold {{ $mode_privasi === 'anonim' ? 'text-white' : 'text-slate-800' }}">
-                                    {{ $mode_privasi === 'anonim' ? '🔒 Laporan Anonim' : '👤 Laporan dengan Nama' }}
+                                <p class="text-sm font-bold {{ $is_anonim ? 'text-white' : 'text-slate-800' }}">
+                                    {{ $is_anonim ? '🔒 Laporan Anonim' : '👤 Laporan dengan Nama' }}
                                 </p>
-                                <p class="text-xs mt-1 {{ $mode_privasi === 'anonim' ? 'text-slate-400' : 'text-slate-500' }}">
-                                    @if($mode_privasi === 'anonim')
+                                <p class="text-xs mt-1 {{ $is_anonim ? 'text-slate-400' : 'text-slate-500' }}">
+                                    @if($is_anonim)
                                         Nama dan NIM Anda <strong class="text-slate-300">disembunyikan</strong>. DPM tidak akan tahu siapa pengirimnya.
                                     @else
                                         Nama dan NIM Anda <strong>terlihat</strong> oleh Staff DPM yang menangani laporan ini.
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-4">
-                            <input type="checkbox" wire:model.live="mode_privasi" value="anonim" class="sr-only peer" {{ $mode_privasi === 'anonim' ? 'checked' : '' }}>
+                            <input type="checkbox" wire:model.live="is_anonim" class="sr-only peer" {{ $is_anonim ? 'checked' : '' }}>
                             <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                         </label>
                     </div>

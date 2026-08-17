@@ -19,9 +19,9 @@ class BuatPengaduan extends Component
     use WithFileUploads;
 
     public $kategori_id;
-    public $kategori_lainnya = ''; // untuk input jika pilih 'Lainnya'
+    public $kategori_lainnya = '';
     public $isi;
-    public $mode_privasi = 'umum';
+    public bool $is_anonim = false; // true = anonim, false = umum
     
     // Properti untuk upload foto
     public $fotos = [];
@@ -39,7 +39,6 @@ class BuatPengaduan extends Component
             'kategori_id'      => 'required|exists:kategori_pengaduan,id',
             'kategori_lainnya' => 'nullable|string|max:100',
             'isi'              => 'required|string|min:20',
-            'mode_privasi'     => 'required|in:umum,anonim',
             'fotos'            => 'nullable|array|max:3',
             'fotos.*'          => 'image|max:10240',
         ], [
@@ -49,19 +48,18 @@ class BuatPengaduan extends Component
             'fotos.*.max'      => 'Ukuran setiap foto maksimal 10MB.',
         ]);
 
-        // Jika kategori Lainnya, tambahkan keterangan ke isi
         $kategori = KategoriPengaduan::find($this->kategori_id);
+        
+        // Jika kategori Lainnya, tambahkan keterangan ke isi
         if ($kategori && strtolower($kategori->nama_kategori) === 'lainnya' && !empty($this->kategori_lainnya)) {
-            $this->isi = '[Kategori: ' . $this->kategori_lainnya . ']
-' . $this->isi;
+            $this->isi = '[Kategori: ' . $this->kategori_lainnya . "]
+" . $this->isi;
         }
         
         $penanganan_khusus = $kategori->level_sensitivitas === 'tinggi' ? 1 : 0;
         
-        // Auto-anonim jika sensitif
-        if ($penanganan_khusus) {
-            $this->mode_privasi = 'anonim';
-        }
+        // Tentukan mode_privasi dari boolean
+        $mode_privasi = ($penanganan_khusus || $this->is_anonim) ? 'anonim' : 'umum';
 
         // Generate Ticket Code (Format: PLP-2026-RANDOM)
         $ticketCode = 'PLP-' . date('Y') . '-' . strtoupper(substr(uniqid(), -4));
@@ -94,7 +92,7 @@ class BuatPengaduan extends Component
         $pengaduan->ticket_code = $ticketCode;
         $pengaduan->kategori_id = $this->kategori_id;
         $pengaduan->isi = $this->isi;
-        $pengaduan->mode_privasi = $this->mode_privasi;
+        $pengaduan->mode_privasi = $mode_privasi;
         $pengaduan->status = 'diterima';
         $pengaduan->penanganan_khusus = $penanganan_khusus;
         
@@ -103,16 +101,15 @@ class BuatPengaduan extends Component
             $pengaduan->lampiran = $lampiranPaths;
         }
 
-        if ($this->mode_privasi === 'anonim') {
-            $pengaduan->user_id = null; // Identitas dikosongkan di tabel utama
+        if ($mode_privasi === 'anonim') {
+            $pengaduan->user_id = null;
             $pengaduan->save();
             
-            // Simpan identitas asli terenkripsi
             $enkripsiService->simpanIdentitas($pengaduan, [
                 'user_id' => Auth::id(),
-                'nama' => Auth::user()->nama,
-                'nim' => Auth::user()->nim,
-                'email' => Auth::user()->email,
+                'nama'    => Auth::user()->nama,
+                'nim'     => Auth::user()->nim,
+                'email'   => Auth::user()->email,
             ]);
         } else {
             $pengaduan->user_id = Auth::id();
