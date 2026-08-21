@@ -72,16 +72,16 @@ new #[Layout('layouts.guest')] class extends Component
             </label>
         </div>
 
-        <div class="flex items-center justify-between mt-6">
+                <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between mt-8 gap-6 sm:gap-4">
             <!-- Left side: Back Button -->
-            <a href="/" wire:navigate class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors">
+            <a href="/" wire:navigate class="inline-flex items-center justify-center sm:justify-start gap-1.5 text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors w-full sm:w-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali
+                Kembali ke Beranda
             </a>
 
             <!-- Right side: Forgot Password & Submit -->
-            <div class="flex items-center">
-                <div class="flex flex-col items-end gap-1">
+            <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-0 w-full sm:w-auto">
+                <div class="flex flex-col items-center sm:items-end gap-1.5 w-full sm:w-auto mb-2 sm:mb-0 order-2 sm:order-1">
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 hover:text-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
                             {{ __('Lupa password?') }}
@@ -92,11 +92,11 @@ new #[Layout('layouts.guest')] class extends Component
                     </a>
                 </div>
 
-                <x-primary-button type="submit" class="ms-4 bg-indigo-600 hover:bg-indigo-700 transition duration-150 ease-in-out shadow-md shadow-indigo-500/30 min-w-[100px] justify-center">
-                    <span wire:loading.remove wire:target="login">{{ __('Masuk') }}</span>
-                    <span wire:loading.flex wire:target="login" class="items-center">
+                <x-primary-button type="submit" class="w-full sm:w-auto sm:ms-4 bg-indigo-600 hover:bg-indigo-700 transition duration-150 ease-in-out shadow-md shadow-indigo-500/30 min-w-[120px] justify-center py-3 sm:py-2 order-1 sm:order-2">
+                    <span wire:loading.remove wire:target="login" class="font-bold text-base sm:text-sm">{{ __('MASUK') }}</span>
+                    <span wire:loading.flex wire:target="login" class="items-center font-bold">
                         <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        ...
+                        Loading
                     </span>
                 </x-primary-button>
             </div>
@@ -114,6 +114,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
     </form>
 </div>
+
 
 
 
