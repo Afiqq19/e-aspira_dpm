@@ -5,13 +5,14 @@ namespace App\Livewire\Admin;
 use App\Models\UuKema;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.app')]
 class KelolaUuKema extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     public $judul;
     public $file;
@@ -28,7 +29,7 @@ class KelolaUuKema extends Component
         $fileSize = $this->file ? round($this->file->getSize() / 1024 / 1024, 2) : 0;
         return [
             "file.max" => "Ukuran file PDF yang Anda unggah terlalu besar ($fileSize MB). Maksimal ukuran yang diizinkan adalah 6 MB.",
-            "file.required" => "File gagal diunggah (Server Nginx/Apache menolak) atau Anda belum memilih file. Pastikan ukuran di bawah 6 MB!",
+            "file.required" => "File gagal diunggah ke Server atau Anda belum memilih file  . Pastikan ukuran di bawah 6 MB!",
         ];
     }
 
@@ -102,10 +103,11 @@ class KelolaUuKema extends Component
     public function render()
     {
         return view('livewire.admin.kelola-uu-kema', [
-            'daftarUu' => UuKema::latest()->get(),
+            'daftarUu' => UuKema::latest()->paginate(10),
         ]);
     }
 }
+
 
 
 

@@ -24,8 +24,11 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">File PDF (Maks 6MB)</label>
-                        <input type="file" wire:model="file" accept=".pdf" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                        @error('file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                        <input type="file" wire:key="file-input-{{ $isEdit ? $editId : 'new' }}" wire:model="file" accept=".pdf" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        @if($isEdit)
+                            <p class="text-xs text-slate-500 mt-2">Biarkan kosong jika tidak ingin mengubah file PDF.</p>
+                        @endif
+                        @error('file') <span class="text-red-500 text-sm block mt-1">{{ $message }}</span> @enderror
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors">
@@ -53,7 +56,7 @@
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         @forelse($daftarUu as $uu)
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr wire:key="uu-{{ $uu->id }}" class="hover:bg-slate-50 transition-colors">
                                 <td class="px-6 py-4 font-medium text-slate-800">{{ $uu->judul }}</td>
                                 <td class="px-6 py-4">
                                     <a href="{{ Storage::url($uu->file_path) }}" target="_blank" class="text-indigo-600 hover:underline flex items-center gap-1">
@@ -79,8 +82,14 @@
                     </tbody>
                 </table>
             </div>
+            
+            <div class="mt-4">
+                {{ $daftarUu->links() }}
+            </div>
         </div>
     </div>
 </div>
+
+
 
 
