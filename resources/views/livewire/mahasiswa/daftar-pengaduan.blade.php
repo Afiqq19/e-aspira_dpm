@@ -69,6 +69,10 @@
                     <p class="text-slate-500 text-sm max-w-md">Anda belum pernah membuat pengaduan umum. Jika Anda menggunakan mode Anonim, silakan lacak menggunakan Nomor Tiket.</p>
                 </div>
             @endforelse
+            
+            <div class="mt-4">
+                {{ $pengaduanUmum->links() }}
+            </div>
         </div>
 
         <!-- Lacak Tiket Widget -->
@@ -108,3 +112,4 @@
         </div>
     </div>
 </div>
+

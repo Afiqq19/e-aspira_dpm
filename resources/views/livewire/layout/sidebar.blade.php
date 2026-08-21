@@ -1,4 +1,4 @@
-<div class="w-64 bg-white border-r border-slate-200 flex flex-col h-screen z-10 shadow-sm shrink-0">
+<div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="absolute md:relative w-64 bg-white border-r border-slate-200 flex flex-col h-screen z-30 shadow-sm shrink-0 transition-transform duration-300 md:translate-x-0">
     <!-- Logo & Title -->
     <div class="h-16 flex items-center px-6 border-b border-slate-100">
         <img src="{{ asset('images/icon_dpm.png') }}" class="w-8 h-8 object-contain drop-shadow-sm" alt="Logo">
@@ -147,6 +147,8 @@
         @endrole
     </nav>
 </div>
+
+
 
 
 

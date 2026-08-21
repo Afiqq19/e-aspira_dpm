@@ -6,10 +6,12 @@ use App\Models\Pengaduan;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
 class DaftarPengaduan extends Component
 {
+    use WithPagination;
     public $searchTicketCode = '';
 
     public function lacakAnonim()
@@ -34,7 +36,8 @@ class DaftarPengaduan extends Component
     public function render()
     {
         return view('livewire.mahasiswa.daftar-pengaduan', [
-            'pengaduanUmum' => Pengaduan::where('user_id', Auth::id())->latest()->get(),
+            'pengaduanUmum' => Pengaduan::where('user_id', Auth::id())->latest()->paginate(10),
         ]);
     }
 }
+

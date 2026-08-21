@@ -20,7 +20,7 @@
         <livewire:layout.sidebar />
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50 relative">
+        <div class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50 relative w-full">
             
             <!-- Blob Background Effect (Premium UI) -->
             <div class="absolute top-0 left-0 w-full h-96 overflow-hidden -z-10 pointer-events-none opacity-40">
@@ -93,6 +93,7 @@
         </script>
     </body>
 </html>
+
 
 
 
