@@ -20,15 +20,15 @@ class KelolaUuKema extends Component
 
     protected $rules = [
         'judul' => 'required|string|max:255',
-        'file' => 'required|mimes:pdf|max:3072', // Max 3MB
+        'file' => 'required|mimes:pdf|max:6144', // Max 3MB
     ];
 
     public function messages()
     {
         $fileSize = $this->file ? round($this->file->getSize() / 1024 / 1024, 2) : 0;
         return [
-            "file.max" => "Ukuran file PDF yang Anda unggah terlalu besar ($fileSize MB). Maksimal ukuran yang diizinkan adalah 3 MB.",
-            "file.required" => "File gagal diunggah (Server Nginx/Apache menolak) atau Anda belum memilih file. Pastikan ukuran di bawah 3 MB!",
+            "file.max" => "Ukuran file PDF yang Anda unggah terlalu besar ($fileSize MB). Maksimal ukuran yang diizinkan adalah 6 MB.",
+            "file.required" => "File gagal diunggah (Server Nginx/Apache menolak) atau Anda belum memilih file. Pastikan ukuran di bawah 6 MB!",
         ];
     }
 
@@ -38,7 +38,7 @@ class KelolaUuKema extends Component
             $uu = UuKema::findOrFail($this->editId);
             $rules = [
                 'judul' => 'required|string|max:255',
-                'file' => 'nullable|mimes:pdf|max:3072',
+                'file' => 'nullable|mimes:pdf|max:6144',
             ];
             $this->validate($rules);
             
@@ -106,5 +106,6 @@ class KelolaUuKema extends Component
         ]);
     }
 }
+
 
 

@@ -40,7 +40,7 @@ class BuatPengaduan extends Component
             'kategori_lainnya' => 'nullable|string|max:100',
             'isi'              => 'required|string|min:20',
             'fotos'            => 'nullable|array|max:3',
-            'fotos.*'          => 'image|max:3072',
+            'fotos.*'          => 'image|max:6144',
         ], [
             'isi.min'          => 'Isi pengaduan minimal 20 karakter untuk kejelasan.',
             'fotos.max'        => 'Maksimal hanya boleh mengunggah 3 foto.',
@@ -120,5 +120,6 @@ class BuatPengaduan extends Component
         return redirect()->route('mahasiswa.pengaduan.index');
     }
 }
+
 
 
