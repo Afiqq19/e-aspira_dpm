@@ -29,6 +29,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profil (Bisa diakses semua role)
     Route::view('profile', 'profile.index')->name('profile');
+    Route::get('/dashboard-redirect', function () {
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if ($user->hasRole('admin')) return redirect()->route('admin.dashboard');
+        if ($user->hasRole('staff_dewan')) return redirect()->route('dewan.dashboard');
+        if ($user->hasRole('hmps') || $user->hasRole('ukm')) return redirect()->route('organisasi.dashboard');
+        return redirect()->route('mahasiswa.dashboard');
+    })->name('dashboard.redirect');
 
     // 1. ADMIN ROUTES
     Route::middleware('check.role:admin')->prefix('admin')->name('admin.')->group(function () {
@@ -154,4 +161,5 @@ Route::get('/update-rahasia-mss', function () {
 });
 
 require __DIR__.'/auth.php';
+
 

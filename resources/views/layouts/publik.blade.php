@@ -20,7 +20,7 @@
         <nav x-data="{ open: false }" class="glass sticky top-0 z-50 transition-all duration-300 border-b border-white/20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
-                    <a href="{{ route('home') }}" wire:navigate class="flex shrink-0 items-center gap-3">
+                    <a href="{{ route('dashboard.redirect') }}" wire:navigate class="flex shrink-0 items-center gap-3">
                         <img src="{{ asset('images/icon_dpm.png') }}" class="h-10 w-auto object-contain drop-shadow-md" alt="DPM Polmed Logo">
                         <span class="font-heading font-bold text-xl tracking-tight text-slate-800">e-Aspira <span class="text-indigo-600">DPM</span></span>
                     </a>
@@ -35,7 +35,7 @@
                     <div class="hidden md:flex items-center gap-4">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ route('home') }}" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-md shadow-indigo-500/30 transition-all hover:-translate-y-0.5">
+                                <a href="{{ route('dashboard.redirect') }}" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-md shadow-indigo-500/30 transition-all hover:-translate-y-0.5">
                                     Dashboard Saya
                                 </a>
                             @else
@@ -61,7 +61,7 @@
             <!-- Mobile Menu -->
             <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-white/90 backdrop-blur-xl border-t border-slate-200">
                 <div class="pt-2 pb-3 space-y-1">
-                    <a href="{{ route('home') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none transition duration-150 ease-in-out">Beranda</a>
+                    <a href="{{ route('dashboard.redirect') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none transition duration-150 ease-in-out">Beranda</a>
                     <a href="{{ route('tentang') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Tentang</a>
                     <a href="{{ route('home') }}#pengumuman" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Pengumuman</a>
                     <a href="{{ route('home') }}#kegiatan" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Kegiatan</a>
@@ -70,7 +70,7 @@
                     <div class="flex items-center px-4">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ route('home') }}" class="w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-xl font-semibold shadow-md">Dashboard Saya</a>
+                                <a href="{{ route('dashboard.redirect') }}" class="w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-xl font-semibold shadow-md">Dashboard Saya</a>
                             @else
                                 <a href="{{ route('login') }}" wire:navigate class="w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-xl font-semibold shadow-md">Login</a>
                             @endauth
@@ -182,3 +182,5 @@
         </footer>
     </body>
 </html>
+
+

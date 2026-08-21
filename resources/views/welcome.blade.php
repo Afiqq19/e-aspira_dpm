@@ -81,7 +81,7 @@
                                         </div>
                                         <div>
                                             <div class="text-sm font-bold text-slate-800">Status Laporan Terakhir</div>
-                                            <div class="text-xs text-slate-500 font-mono">{{ $latestPengaduan ? $latestPengaduan->ticket_code : '#BELUM-ADA' }}</div>
+                                            <div class="text-xs text-slate-500 font-mono">{{ 'PLP-2026-X1Y2' }}</div>
                                         </div>
                                     </div>
                                     @php
@@ -243,3 +243,4 @@
             </div>
         </section>
 </x-publik-layout>
+
