@@ -1,6 +1,6 @@
 <x-publik-layout>
     <!-- Header Section with Gradient -->
-    <div class="pt-32 pb-20 bg-gradient-to-br from-indigo-900 via-slate-800 to-indigo-900 relative overflow-hidden">
+    <div class="pt-12 pb-16 sm:pt-16 sm:pb-20 bg-gradient-to-br from-indigo-900 via-slate-800 to-indigo-900 relative overflow-hidden">
         <!-- Decorative Orbs -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
             <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[70%] rounded-full bg-indigo-500/20 blur-[120px]"></div>
@@ -67,3 +67,4 @@
         </div>
     </div>
 </x-publik-layout>
+
