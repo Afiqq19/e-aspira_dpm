@@ -28,9 +28,9 @@
                     <div class="hidden md:flex space-x-8">
                         <a href="{{ route('home') }}" wire:navigate class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Beranda</a>
                         <a href="{{ route('tentang') }}" wire:navigate class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Tentang</a>
-                        <a href="{{ route('home') }}#pengumuman" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Pengumuman</a>
-                        <a href="{{ route('home') }}#kegiatan" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Kegiatan</a>
-                        <a href="{{ route('home') }}#uu-kema" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">UU Kema</a>
+                        <a href="{{ route('home') }}#pengumuman" @click="open = false" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Pengumuman</a>
+                        <a href="{{ route('home') }}#kegiatan" @click="open = false" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Kegiatan</a>
+                        <a href="{{ route('home') }}#uu-kema" @click="open = false" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">UU Kema</a>
                     </div>
 
                     <div class="hidden md:flex items-center gap-4">
@@ -64,8 +64,9 @@
                 <div class="pt-2 pb-3 space-y-1">
                     <a href="{{ route('dashboard.redirect') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none transition duration-150 ease-in-out">Beranda</a>
                     <a href="{{ route('tentang') }}" wire:navigate class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Tentang</a>
-                    <a href="{{ route('home') }}#pengumuman" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Pengumuman</a>
-                    <a href="{{ route('home') }}#kegiatan" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Kegiatan</a>
+                    <a href="{{ route('home') }}#pengumuman" @click="open = false" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Pengumuman</a>
+                    <a href="{{ route('home') }}#kegiatan" @click="open = false" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">Kegiatan</a>
+                    <a href="{{ route('home') }}#uu-kema" @click="open = false" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus:outline-none transition duration-150 ease-in-out">UU Kema</a>
                 </div>
                 <div class="pt-4 pb-4 border-t border-slate-200">
                     <div class="flex items-center px-4">
@@ -126,8 +127,9 @@
                         <ul class="space-y-3">
                             <li><a href="{{ route('home') }}" wire:navigate class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Beranda</a></li>
                             <li><a href="{{ route('tentang') }}" wire:navigate class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Tentang Kami</a></li>
-                            <li><a href="{{ route('home') }}#pengumuman" class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Pengumuman Terbaru</a></li>
-                            <li><a href="{{ route('home') }}#kegiatan" class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Kalender Kegiatan</a></li>
+                            <li><a href="{{ route('home') }}#pengumuman" @click="open = false" class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Pengumuman Terbaru</a></li>
+                            <li><a href="{{ route('home') }}#kegiatan" @click="open = false" class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> Kalender Kegiatan</a></li>
+                            <li><a href="{{ route('home') }}#uu-kema" @click="open = false" class="text-slate-400 hover:text-indigo-400 transition-colors text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg> UU Kema</a></li>
                         </ul>
                     </div>
 
@@ -183,6 +185,8 @@
         </footer>
     </body>
 </html>
+
+
 
 
 
