@@ -30,6 +30,7 @@
                         <a href="{{ route('tentang') }}" wire:navigate class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Tentang</a>
                         <a href="{{ route('home') }}#pengumuman" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Pengumuman</a>
                         <a href="{{ route('home') }}#kegiatan" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Kegiatan</a>
+                        <a href="{{ route('home') }}#uu-kema" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">UU Kema</a>
                     </div>
 
                     <div class="hidden md:flex items-center gap-4">
@@ -182,5 +183,6 @@
         </footer>
     </body>
 </html>
+
 
 

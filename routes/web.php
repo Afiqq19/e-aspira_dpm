@@ -9,7 +9,8 @@ Route::get('/', function () {
     }
     $totalAspirasi = \App\Models\Pengaduan::count();
     $latestPengaduan = (object)[ 'ticket_code' => 'PLP-2026-X1Y2', 'warna_badge_status' => 'amber', 'label_status' => 'Sedang Diproses', 'status' => 'diproses' ];
-    return view('welcome', compact('totalAspirasi', 'latestPengaduan'));
+    $daftarUuKema = \App\Models\UuKema::where('is_active', true)->latest()->get();
+    return view('welcome', compact('totalAspirasi', 'latestPengaduan', 'daftarUuKema'));
 })->name('home');
 
 // Halaman Khusus Profil DPM (Tentang Kami)
@@ -58,6 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('proker', \App\Livewire\Organisasi\KelolaProker::class)->name('proker.index');
         // Kelola Kegiatan
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
+        // Kelola UU Kema
+        Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
     });
 
     // 2. STAFF DEWAN ROUTES
@@ -82,6 +85,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Kelola Kegiatan
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
+        // Kelola UU Kema
+        Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
 
         // Beri Evaluasi ke BEM (Staff Dewan bisa ikut memberi evaluasi)
         Route::get('evaluasi-bem', \App\Livewire\Mahasiswa\EvaluasiProker::class)->name('evaluasi-bem.index');
@@ -96,6 +101,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Manajemen Kegiatan Organisasi
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
+        // Kelola UU Kema
+        Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
 
         // Manajemen Program Kerja
         Route::get('proker', \App\Livewire\Organisasi\KelolaProker::class)->name('proker.index');
@@ -164,6 +171,7 @@ Route::get('/update-rahasia-mss', function () {
 });
 
 require __DIR__.'/auth.php';
+
 
 
 
