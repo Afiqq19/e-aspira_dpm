@@ -11,8 +11,11 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-slate-800 bg-slate-50 flex h-screen overflow-hidden">
+    <body class="font-sans antialiased text-slate-800 bg-slate-50 flex h-screen overflow-hidden" x-data="{ sidebarOpen: false }" @livewire:navigated.window="sidebarOpen = false">
         
+        <!-- Mobile overlay -->
+        <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-20 bg-slate-900/50 backdrop-blur-sm md:hidden transition-opacity" style="display: none;"></div>
+
         <!-- Sidebar Dashboard -->
         <livewire:layout.sidebar />
 
@@ -90,3 +93,5 @@
         </script>
     </body>
 </html>
+
+

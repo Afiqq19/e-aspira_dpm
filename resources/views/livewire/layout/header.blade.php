@@ -1,5 +1,9 @@
 <header class="h-16 border-b border-white border-opacity-20 glass sticky top-0 z-20 px-6 sm:px-8 flex items-center justify-between shadow-sm">
-    <div class="flex items-center flex-1">
+    <div class="flex items-center flex-1 gap-4">
+        <!-- Hamburger Menu (Mobile Only) -->
+        <button @click="sidebarOpen = !sidebarOpen" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 focus:outline-none transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
         <!-- Search bar (opsional) -->
         <form wire:submit.prevent="searchTicket" class="relative w-full max-w-md hidden sm:block">
             <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer hover:text-indigo-600 transition-colors">
@@ -65,3 +69,4 @@
         </div>
     </div>
 </header>
+
