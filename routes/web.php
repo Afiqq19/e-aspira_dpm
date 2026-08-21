@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 // Halaman Utama / Landing Page (Pengumuman & Kalender Umum)
 Route::get('/', function () {
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        return redirect()->route('dashboard.redirect');
+    }
     $totalAspirasi = \App\Models\Pengaduan::count();
     $latestPengaduan = (object)[ 'ticket_code' => 'PLP-2026-X1Y2', 'warna_badge_status' => 'amber', 'label_status' => 'Sedang Diproses', 'status' => 'diproses' ];
     return view('welcome', compact('totalAspirasi', 'latestPengaduan'));
@@ -161,5 +164,6 @@ Route::get('/update-rahasia-mss', function () {
 });
 
 require __DIR__.'/auth.php';
+
 
 
