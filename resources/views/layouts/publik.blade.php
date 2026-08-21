@@ -7,6 +7,7 @@
         <link rel="icon" type="image/png" href="{{ asset('images/icon_dpm.png') }}">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+            @livewireStyles
     </head>
     <body class="font-sans antialiased bg-slate-50 text-slate-800 overflow-x-hidden">
         <!-- Background Effects -->
@@ -183,8 +184,10 @@
                 </div>
             </div>
         </footer>
+            @livewireScripts
     </body>
 </html>
+
 
 
 
