@@ -16,6 +16,11 @@ Route::get('/', function () {
 // Halaman Khusus Profil DPM (Tentang Kami)
 Route::get('/tentang', \App\Livewire\Publik\TentangKami::class)->name('tentang');
 
+Route::get('/uu-kema', function () {
+    $daftarUuKema = \App\Models\UuKema::where('is_active', true)->latest()->get();
+    return view('uu-kema', compact('daftarUuKema'));
+})->name('uu-kema.publik');
+
 // Halaman Legal & Privasi
 Route::get('/syarat-ketentuan', \App\Livewire\Publik\SyaratKetentuan::class)->name('syarat');
 Route::get('/kebijakan-privasi', \App\Livewire\Publik\KebijakanPrivasi::class)->name('privasi');
@@ -169,6 +174,8 @@ Route::get('/update-rahasia-mss', function () {
 });
 
 require __DIR__.'/auth.php';
+
+
 
 
 
