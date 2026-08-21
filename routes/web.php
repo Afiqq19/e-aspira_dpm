@@ -59,7 +59,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('proker', \App\Livewire\Organisasi\KelolaProker::class)->name('proker.index');
         // Kelola Kegiatan
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
-        // Kelola UU Kema
         Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
     });
 
@@ -85,7 +84,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Kelola Kegiatan
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
-        // Kelola UU Kema
         Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
 
         // Beri Evaluasi ke BEM (Staff Dewan bisa ikut memberi evaluasi)
@@ -101,7 +99,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         // Manajemen Kegiatan Organisasi
         Route::get('kegiatan', \App\Livewire\Organisasi\KelolaKegiatan::class)->name('kegiatan.index');
-        // Kelola UU Kema
         Route::get('uu-kema', \App\Livewire\Admin\KelolaUuKema::class)->name('uu-kema.index');
 
         // Manajemen Program Kerja
@@ -171,6 +168,8 @@ Route::get('/update-rahasia-mss', function () {
 });
 
 require __DIR__.'/auth.php';
+
+
 
 
 
