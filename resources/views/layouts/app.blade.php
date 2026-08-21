@@ -10,6 +10,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>[x-cloak] { display: none !important; }</style>
     </head>
     <body class="font-sans antialiased text-slate-800 bg-slate-50 flex h-screen overflow-hidden" x-data="{ sidebarOpen: false }" x-on:livewire:navigated.window="sidebarOpen = false">
         
@@ -93,6 +94,7 @@
         </script>
     </body>
 </html>
+
 
 
 

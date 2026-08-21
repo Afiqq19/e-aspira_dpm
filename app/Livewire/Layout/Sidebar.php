@@ -13,10 +13,29 @@ class Sidebar extends Component
     }
     
     /**
-     * Check if a given route is active
+     * Check if a given route is active and return dark-theme CSS classes
      */
     public function isActive($route)
     {
-        return request()->routeIs($route) ? 'bg-indigo-500/10 text-indigo-600 border-r-4 border-indigo-600 font-semibold' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600';
+        return request()->routeIs($route) ? 'bg-indigo-500/20 text-indigo-300 font-semibold' : 'text-slate-400 hover:bg-white/10 hover:text-white';
+    }
+
+    /**
+     * Alias for isActive - used in new sidebar template
+     */
+    public function isActiveClass($route)
+    {
+        return request()->routeIs($route) ? 'bg-indigo-500/20 text-indigo-300 font-semibold' : 'text-slate-400 hover:bg-white/10 hover:text-white';
+    }
+
+    /**
+     * Logout
+     */
+    public function logout()
+    {
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

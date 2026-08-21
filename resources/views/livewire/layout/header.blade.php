@@ -1,4 +1,4 @@
-<header class="h-16 border-b border-white border-opacity-20 glass sticky top-0 z-20 px-6 sm:px-8 flex items-center justify-between shadow-sm">
+<header class="h-16 bg-white/80 backdrop-blur-xl border-b border-slate-200/80 sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between shadow-sm">
     <div class="flex items-center flex-1 gap-4">
         <!-- Hamburger Menu (Mobile Only) -->
         <button @click="sidebarOpen = !sidebarOpen" class="md:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 focus:outline-none transition-colors">
@@ -69,4 +69,5 @@
         </div>
     </div>
 </header>
+
 
