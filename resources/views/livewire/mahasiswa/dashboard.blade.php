@@ -78,23 +78,6 @@
             </a>
         </div>
 
-        <!-- Extra Feature: UU Kema Access -->
-        <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/60 shadow-sm relative z-10">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center shrink-0">
-                        <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-800">Peraturan & Undang-Undang Kema</h4>
-                        <p class="text-sm text-slate-500 mt-1">Ingin mengetahui regulasi kampus? Baca dokumen UU Kema Polmed yang berlaku.</p>
-                    </div>
-                </div>
-                <a href="{{ route('uu-kema.publik') }}" class="w-full sm:w-auto text-center px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-slate-500/20 whitespace-nowrap">
-                    Buka UU Kema
-                </a>
-            </div>
-        </div>
-        
     </div>
 </x-app-layout>
+

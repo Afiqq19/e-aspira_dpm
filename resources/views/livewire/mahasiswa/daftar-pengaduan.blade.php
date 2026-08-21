@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="flex flex-col lg:grid lg:grid-cols-3 gap-6 lg:gap-8">
         <!-- List Pengaduan -->
         <div class="lg:col-span-2 space-y-6">
             <div class="flex items-center justify-between mb-4">
@@ -24,7 +24,7 @@
 
             @forelse($pengaduanUmum as $p)
                 <div class="glass p-6 rounded-2xl hover:shadow-lg hover:shadow-indigo-500/10 transition-all border border-slate-100 relative overflow-hidden group">
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
                         <div>
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="font-mono text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">{{ $p->ticket_code }}</span>
@@ -112,4 +112,5 @@
         </div>
     </div>
 </div>
+
 
