@@ -23,6 +23,15 @@ class KelolaUuKema extends Component
         'file' => 'required|mimes:pdf|max:3072', // Max 3MB
     ];
 
+    public function messages()
+    {
+        $fileSize = $this->file ? round($this->file->getSize() / 1024 / 1024, 2) : 0;
+        return [
+            "file.max" => "Ukuran file PDF yang Anda unggah terlalu besar ($fileSize MB). Maksimal ukuran yang diizinkan adalah 3 MB.",
+            "file.required" => "File gagal diunggah (Server Nginx/Apache menolak) atau Anda belum memilih file. Pastikan ukuran di bawah 3 MB!",
+        ];
+    }
+
     public function simpan()
     {
         if ($this->isEdit) {
@@ -97,4 +106,5 @@ class KelolaUuKema extends Component
         ]);
     }
 }
+
 
