@@ -23,7 +23,7 @@
                         @error('judul') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">File PDF (Maks 10MB)</label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">File PDF (Maks 3MB)</label>
                         <input type="file" wire:model="file" accept=".pdf" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
                         @error('file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
@@ -82,3 +82,4 @@
         </div>
     </div>
 </div>
+

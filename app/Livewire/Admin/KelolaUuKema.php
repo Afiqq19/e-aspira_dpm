@@ -20,7 +20,7 @@ class KelolaUuKema extends Component
 
     protected $rules = [
         'judul' => 'required|string|max:255',
-        'file' => 'required|mimes:pdf|max:10240', // Max 10MB
+        'file' => 'required|mimes:pdf|max:3072', // Max 3MB
     ];
 
     public function simpan()
@@ -29,7 +29,7 @@ class KelolaUuKema extends Component
             $uu = UuKema::findOrFail($this->editId);
             $rules = [
                 'judul' => 'required|string|max:255',
-                'file' => 'nullable|mimes:pdf|max:10240',
+                'file' => 'nullable|mimes:pdf|max:3072',
             ];
             $this->validate($rules);
             
@@ -97,3 +97,4 @@ class KelolaUuKema extends Component
         ]);
     }
 }
+
