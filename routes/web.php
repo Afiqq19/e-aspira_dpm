@@ -148,6 +148,7 @@ Route::get('/update-rahasia-mss', function () {
     $output2 = shell_exec("cd \"$repoDir\" && \"$gitPath\" reset --hard origin/main 2>&1");
     $output3 = shell_exec("cd \"$repoDir\" && composer install 2>&1");
     $output4 = shell_exec("cd \"$repoDir\" && php artisan migrate --force 2>&1");
+    $output_clear = shell_exec("cd \"$repoDir\" && php artisan optimize:clear 2>&1");
     $output5 = shell_exec("cd \"$repoDir\" && npm install 2>&1");
     $output6 = shell_exec("cd \"$repoDir\" && npm run build 2>&1");
     
@@ -167,13 +168,19 @@ Route::get('/update-rahasia-mss', function () {
 [DATABASE MIGRATE]
 " . htmlspecialchars((string) $output4) . "
 
-[NPM BUILD (TAMPILAN)]
+
+  [CLEAR CACHE]
+  " . htmlspecialchars((string) $output_clear) . "
+
+  [NPM BUILD (TAMPILAN)]
 " . htmlspecialchars((string) $output5) . "
 " . htmlspecialchars((string) $output6) . "
             </pre>";
 });
 
 require __DIR__.'/auth.php';
+
+
 
 
 
